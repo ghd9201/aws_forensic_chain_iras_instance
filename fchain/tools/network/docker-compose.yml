@@ -9,11 +9,137 @@ version: '3'
 #  basic:
 
 networks:
-  irasnetwork:
+  fchainnetwork:
     external:
-      name: iras-net
+      name: fchain-net
 
 services:
+  z0.fchain.com:
+    container_name: z0.fchain.com
+    image: hyperledger/fabric-zookeeper:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    environment:
+      - ZOO_MY_ID=1
+
+  z1.fchain.com:
+    container_name: z1.fchain.com
+    image: hyperledger/fabric-zookeeper:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    environment:
+      - ZOO_MY_ID=2
+
+  z2.fchain.com:
+    container_name: z2.fchain.com
+    image: hyperledger/fabric-zookeeper:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    environment:
+      - ZOO_MY_ID=3
+
+  k0.fchain.com:
+    container_name: k0.fchain.com
+    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MESSAGE_MAX_BYTES=11530000
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
+      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
+
+  k1.fchain.com:
+    container_name: k1.fchain.com
+    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MESSAGE_MAX_BYTES=11530000
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
+      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
+
+  k2.fchain.com:
+    container_name: k2.fchain.com
+    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MESSAGE_MAX_BYTES=11530000
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
+      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
+
+  k3.fchain.com:
+    container_name: k3.fchain.com
+    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
+    networks:
+      - fchainnetwork
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MESSAGE_MAX_BYTES=11530000
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
+      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
+
+  o0.fchain.com:
+    container_name: o0.fchain.com
+    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
+    volumes:
+    - ./channel-artifacts/:/etc/hyperledger/configtx
+    - ./crypto/ordererOrganizations/fchain.com/orderers/o0.fchain.com/:/etc/hyperledger/msp/orderer
+    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
+    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
+    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
+    - ./orderer.yaml:/etc/hyperledger/fabric/orderer.yaml     
+    networks:
+    - fchainnetwork
+
+  o1.fchain.com:
+    container_name: o1.fchain.com
+    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
+    volumes:
+    - ./channel-artifacts/:/etc/hyperledger/configtx
+    - ./crypto/ordererOrganizations/fchain.com/orderers/o1.fchain.com/:/etc/hyperledger/msp/orderer
+    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
+    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
+    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
+    - ./orderer.yaml:/etc/hyperledger/fabric/orderer.yaml
+    networks:
+    - fchainnetwork
+
+  o2.fchain.com:
+    container_name: o2.fchain.com
+    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
+    volumes:
+    - ./channel-artifacts/:/etc/hyperledger/configtx
+    - ./crypto/ordererOrganizations/fchain.com/orderers/o2.fchain.com/:/etc/hyperledger/msp/orderer
+    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
+    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
+    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
+    - ./orderer.yaml:/etc/hyperledger/fabric/orderer.yaml
+    networks:
+    - fchainnetwork
+
+
   ca.org1.com:
     image: hyperledger/fabric-ca${DOCKER_IMG_TAG}
     environment:
@@ -43,28 +169,6 @@ services:
     volumes:
     - ./crypto-config/peerOrganizations/org2.iras.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.org2.com
-    networks:
-    - irasnetwork
-
-  orderer.iras.com:
-    container_name: orderer.iras.com
-    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
-    environment:
-    - ORDERER_GENERAL_LOGLEVEL=debug
-    - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
-    - ORDERER_GENERAL_GENESISMETHOD=file
-    - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
-    - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
-    - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
-    command: orderer
-    ports:
-    - 7050:7050
-    volumes:
-    - ./channel-artifacts/:/etc/hyperledger/configtx
-    - ./crypto-config/ordererOrganizations/iras.com/orderers/orderer.iras.com/:/etc/hyperledger/msp/orderer
-    - ./crypto-config/peerOrganizations/org1.iras.com/peers/peer0.org1.iras.com/:/etc/hyperledger/msp/peerOrg1
-    - ./crypto-config/peerOrganizations/org2.iras.com/peers/peer0.org2.iras.com/:/etc/hyperledger/msp/peerOrg2
     networks:
     - irasnetwork
 

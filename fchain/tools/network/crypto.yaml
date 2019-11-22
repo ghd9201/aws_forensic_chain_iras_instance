@@ -10,7 +10,7 @@ OrdererOrgs:
   - Name: Orderer
     Domain: fchain.com
     Template:
-      Count: 3
+      Count: 2
       Hostname: o{{.Index}}
 
 PeerOrgs:

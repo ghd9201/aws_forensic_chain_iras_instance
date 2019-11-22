@@ -13,18 +13,6 @@ echo "--- organization fchannel  ---"
 #channel configuration transaction: 프로필에 지정된 이름은 configtx.yaml의 "ChannelProfile" 이다.
 /home/ubuntu/go/src/github.com/hyperledger/fabric/scripts/bin/configtxgen -profile FchainChannel -outputCreateChannelTx ./channel-artifacts/fchannel.tx -channelID fchannel
 
-#/home/ubuntu/go/src/github.com/hyperledger/fabric/scripts/bin/configtxgen -profile TwoOrgAnotherChannel -outputCreateChannelTx ./channel-artifacts/channel2.tx -channelID iraschannel2
-
-#/home/ubuntu/go/src/github.com/hyperledger/fabric/scripts/bin/configtxgen -profile TwoOrgAnotherChannelB -outputCreateChannelTx ./channel-artifacts/channel3.tx -channelID iraschannel3
-
-#/home/ubuntu/go/src/github.com/hyperledger/fabric/scripts/bin/configtxgen -profile TwoOrgAnotherChannelC -outputCreateChannelTx ./channel-artifacts/channel3.tx -channelID iraschannel4
-
-#/home/ubuntu/go/src/github.com/hyperledger/fabric/scripts/bin/configtxgen -profile TwoOrgAnotherChannelD -outputCreateChannelTx ./channel-artifacts/channel3.tx -channelID iraschannel5
-
-
-#two anchor peer transactions - one for each Peer Org.
-#./bin/configtxgen -profile OneOrgChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
-
 
 echo "--- organization Org1 anchor ---"
 ~/go/src/github.com/hyperledger/fabric-samples/bin/configtxgen -asOrg Org1MSP -channelID fchannel -configPath . -outputAnchorPeersUpdate ./channel-artifacts/fchannel.anchor.org1 -profile FchainChannel

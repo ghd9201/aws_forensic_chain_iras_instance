@@ -32,7 +32,6 @@ Organizations:
         OrdererEndpoints:
             - "o0.fchain.com:7050"
             - "o1.fchain.com:7050"
-            - "o2.fchain.com:7050"
                 
 
     - &Org1
@@ -206,7 +205,6 @@ Orderer: &OrdererDefaults
     Addresses:
         - o0.fchain.com:7050
         - o1.fchain.com:7050
-        - o2.fchain.com:7050
 
     BatchTimeout: 2s
     BatchSize:
@@ -222,7 +220,6 @@ Orderer: &OrdererDefaults
             - k1.fchain.com:9092
             - k2.fchain.com:9092
             - k3.fchain.com:9092
-            - k4.fchain.com:9092
 
     Organizations:
 
