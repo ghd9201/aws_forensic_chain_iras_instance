@@ -2,7 +2,7 @@
 
 echo 'Install ChainCode'
 CHAINCODE_DIR=github.com/hyperledger/fabric/examples/chaincode/go/
-CORE_PEER_ADDRESS=peer0.org2.iras.com:7051 peer chaincode install -n $1 -v $2 -p $CHAINCODE_DIR/$1_cc
+CORE_PEER_ADDRESS=p0.org2.fchain.com:7051 peer chaincode install -n $1 -v $2 -p $CHAINCODE_DIR/$1_cc
 
 echo 'Done'
 

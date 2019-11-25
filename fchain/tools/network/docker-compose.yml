@@ -9,185 +9,100 @@ version: '3'
 #  basic:
 
 networks:
-  fchainnetwork:
+  fcnetwork:
     external:
       name: fchain-net
 
 services:
-  z0.fchain.com:
-    container_name: z0.fchain.com
-    image: hyperledger/fabric-zookeeper:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    volumes:
-      - ./zoo.cfg:/conf/zoo.cfg
-    environment:
-      - ZOO_MY_ID=1
-
-  z1.fchain.com:
-    container_name: z1.fchain.com
-    image: hyperledger/fabric-zookeeper:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    volumes:
-      - ./zoo.cfg:/conf/zoo.cfg
-    environment:
-      - ZOO_MY_ID=2
-
-  z2.fchain.com:
-    container_name: z2.fchain.com
-    image: hyperledger/fabric-zookeeper:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    volumes:
-      - ./zoo.cfg:/conf/zoo.cfg
-    environment:
-      - ZOO_MY_ID=3
-
-  k0.fchain.com:
-    container_name: k0.fchain.com
-    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    environment:
-      - KAFKA_BROKER_ID=0
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_MESSAGE_MAX_BYTES=11530000
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
-      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
-
-  k1.fchain.com:
-    container_name: k1.fchain.com
-    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    environment:
-      - KAFKA_BROKER_ID=1
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_MESSAGE_MAX_BYTES=11530000
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
-      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
-
-  k2.fchain.com:
-    container_name: k2.fchain.com
-    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    environment:
-      - KAFKA_BROKER_ID=0
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_MESSAGE_MAX_BYTES=11530000
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
-      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
-
-  k3.fchain.com:
-    container_name: k3.fchain.com
-    image: hyperledger/fabric-kafka:${THIRDPARTY_VERSION}
-    networks:
-      - fchainnetwork
-    environment:
-      - KAFKA_BROKER_ID=0
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_MESSAGE_MAX_BYTES=11530000
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=11530000
-      - KAFKA_ZOOKEEPER_CONNECT=z0.fchain.com:2181,z1.fchain.com:2181,z2.fchain.com:2181
-
-  o0.fchain.com:
-    container_name: o0.fchain.com
-    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
-    volumes:
-    - ./channel-artifacts/:/etc/hyperledger/configtx
-    - ./crypto/ordererOrganizations/fchain.com/orderers/o0.fchain.com/:/etc/hyperledger/msp/orderer
-    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
-    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
-    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
-    - ./orderer.yaml:/etc/hyperledger/fabric/orderer.yaml     
-    networks:
-    - fchainnetwork
-
-  o1.fchain.com:
-    container_name: o1.fchain.com
-    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
-    volumes:
-    - ./channel-artifacts/:/etc/hyperledger/configtx
-    - ./crypto/ordererOrganizations/fchain.com/orderers/o1.fchain.com/:/etc/hyperledger/msp/orderer
-    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
-    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
-    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
-    - ./orderer.yaml:/etc/hyperledger/fabric/orderer.yaml
-    networks:
-    - fchainnetwork
-
-  o2.fchain.com:
-    container_name: o2.fchain.com
-    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
-    volumes:
-    - ./channel-artifacts/:/etc/hyperledger/configtx
-    - ./crypto/ordererOrganizations/fchain.com/orderers/o2.fchain.com/:/etc/hyperledger/msp/orderer
-    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
-    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
-    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
-    - ./orderer.yaml:/etc/hyperledger/fabric/orderer.yaml
-    networks:
-    - fchainnetwork
-
-
-  ca.org1.com:
+  ca.org1.fchain.com:
     image: hyperledger/fabric-ca${DOCKER_IMG_TAG}
     environment:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-    - FABRIC_CA_SERVER_CA_NAME=ca.org1.com
-    - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.iras.com-cert.pem
-    - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/a9e3a0b8d979f36d64198789dbea60bd5fa16bcd4737fa58a11bd6332051b13e_sk
+    - FABRIC_CA_SERVER_CA_NAME=ca.org1.fchain.com
+    - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.fchain.com-cert.pem
+    - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/0565f482af17cffc969cd9ee2eb1b1c1246024a13f6e793f556c9b8c5ebdb679_sk
     ports:
     - "7054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw'
     volumes:
-    - ./crypto-config/peerOrganizations/org1.iras.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.org1.com
+    - ./crypto/peerOrganizations/org1.fchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.org1.fchain.com
     networks:
-    - irasnetwork
+    - fcnetwork
 
-  ca.org2.com:
+  ca.org2.fchain.com:
     image: hyperledger/fabric-ca${DOCKER_IMG_TAG}
     environment:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-    - FABRIC_CA_SERVER_CA_NAME=ca.org2.com
-    - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.iras.com-cert.pem
-    - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/3dc71e42d54c3893cf478d07199dca426b23b54c1c0d7a6463aff71db4f7e45a_sk
+    - FABRIC_CA_SERVER_CA_NAME=ca.org2.fchain.com
+    - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.fchain.com-cert.pem
+    - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/d76f5ede840dca3fdab161389226235bee25d435d0691eeffe0b7dda563d6f25_sk
     ports:
     - "7154:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw'
     volumes:
-    - ./crypto-config/peerOrganizations/org2.iras.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca.org2.com
+    - ./crypto/peerOrganizations/org2.fchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.org2.fchain.com
     networks:
-    - irasnetwork
+    - fcnetwork
 
-  peer0.org1.iras.com:
-    container_name: peer0.org1.iras.com
+  ca.org3.fchain.com:
+    image: hyperledger/fabric-ca${DOCKER_IMG_TAG}
+    environment:
+    - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+    - FABRIC_CA_SERVER_CA_NAME=ca.org3.fchain.com
+    - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org3.fchain.com-cert.pem
+    - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/357025d52ef7eb94539a24454f74469ad7ad4868569a12fb954d77ccdcf64a28_sk
+    ports:
+    - "7254:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
+    volumes:
+    - ./crypto/peerOrganizations/org3.fchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.org3.fchain.com
+    networks:
+    - fcnetwork
+
+  orderer.fchain.com:
+    container_name: orderer.fchain.com
+    image: hyperledger/fabric-orderer${DOCKER_IMG_TAG}
+    environment:
+    - ORDERER_GENERAL_LOGLEVEL=debug
+    - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+    - ORDERER_GENERAL_GENESISMETHOD=file
+    - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+    - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+    - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
+    command: orderer
+    ports:
+    - 7050:7050
+    volumes:
+    - ./channel-artifacts/:/etc/hyperledger/configtx
+    - ./crypto/ordererOrganizations/fchain.com/orderers/orderer.fchain.com/:/etc/hyperledger/msp/orderer
+    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/:/etc/hyperledger/msp/peerOrg1
+    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/:/etc/hyperledger/msp/peerOrg2
+    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/:/etc/hyperledger/msp/peerOrg3
+    networks:
+    - fcnetwork
+
+  p0.org1.fchain.com:
+    container_name: p0.org1.fchain.com
     image: hyperledger/fabric-peer${DOCKER_IMG_TAG}
     environment:
     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-    - CORE_PEER_ID=peer0.org1.iras.com
+    - CORE_PEER_ID=p0.org1.fchain.com
     - CORE_LOGGING_PEER=debug
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org1MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_ADDRESS=peer0.org1.iras.com:7051
+    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org1.fchain.com:7051
+    - CORE_PEER_ADDRESS=p0.org1.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org1.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
     # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
-    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iras-net
+    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fchain-net
     - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
     - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
     # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
@@ -206,31 +121,33 @@ services:
     - 7053:7053
     volumes:
     - /var/run/:/host/var/run/
-    - ./crypto-config/peerOrganizations/org1.iras.com/peers/peer0.org1.iras.com/msp:/etc/hyperledger/msp/peer
-    - ./crypto-config/peerOrganizations/org1.iras.com/users:/etc/hyperledger/msp/users
+    - ./crypto/peerOrganizations/org1.fchain.com/peers/p0.org1.fchain.com/msp:/etc/hyperledger/msp/peer
+    - ./crypto/peerOrganizations/org1.fchain.com/users:/etc/hyperledger/msp/users
     - ./channel-artifacts:/etc/hyperledger/configtx
     depends_on:
-    - orderer.iras.com
+    - orderer.fchain.com
     - couchdb
     networks:
-    - irasnetwork
+    - fcnetwork
 
-  peer1.org1.iras.com:
-    container_name: peer1.org1.iras.com
+  p1.org1.fchain.com:
+    container_name: p1.org1.fchain.com
     image: hyperledger/fabric-peer${DOCKER_IMG_TAG}
     environment:
     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-    - CORE_PEER_ID=peer1.org1.iras.com
+    - CORE_PEER_ID=p1.org1.fchain.com
     - CORE_LOGGING_PEER=debug
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org1MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_ADDRESS=peer1.org1.iras.com:7051
+    - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org1.fchain.com:7051
+    - CORE_PEER_ADDRESS=p1.org1.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org1.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
     # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
-    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iras-net
+    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fchain-net
     - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
     - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
     # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
@@ -238,9 +155,9 @@ services:
     # match the username and password set for the associated CouchDB.
     - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
     - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
-    #  - CORE_PEER_GOSSIP_USELEADERELECTION=true
-    #  - CORE_PEER_GOSSIP_ORGLEADER=false
-    #  - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+#    - CORE_PEER_GOSSIP_USELEADERELECTION=true
+#    - CORE_PEER_GOSSIP_ORGLEADER=false
+#    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start
     # command: peer node start --peer-chaincodedev=true
@@ -249,31 +166,33 @@ services:
     - 7153:7053
     volumes:
     - /var/run/:/host/var/run/
-    - ./crypto-config/peerOrganizations/org1.iras.com/peers/peer1.org1.iras.com/msp:/etc/hyperledger/msp/peer
-    - ./crypto-config/peerOrganizations/org1.iras.com/users:/etc/hyperledger/msp/users
+    - ./crypto/peerOrganizations/org1.fchain.com/peers/p1.org1.fchain.com/msp:/etc/hyperledger/msp/peer
+    - ./crypto/peerOrganizations/org1.fchain.com/users:/etc/hyperledger/msp/users
     - ./channel-artifacts:/etc/hyperledger/configtx
     depends_on:
-    - orderer.iras.com
+    - orderer.fchain.com
     - couchdb
     networks:
-    - irasnetwork
+    - fcnetwork
 
-  peer0.org2.iras.com:
-    container_name: peer0.org2.iras.com
+  p0.org2.fchain.com:
+    container_name: p0.org2.fchain.com
     image: hyperledger/fabric-peer${DOCKER_IMG_TAG}
     environment:
     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-    - CORE_PEER_ID=peer0.org2.iras.com
+    - CORE_PEER_ID=p0.org2.fchain.com
     - CORE_LOGGING_PEER=debug
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org2MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_ADDRESS=peer0.org2.iras.com:7051
+    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org2.fchain.com:7051
+    - CORE_PEER_ADDRESS=p0.org2.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org2.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
     # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
-    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iras-net
+    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fchain-net
     - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
     - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
     # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
@@ -292,31 +211,33 @@ services:
     - 7253:7053
     volumes:
     - /var/run/:/host/var/run/
-    - ./crypto-config/peerOrganizations/org2.iras.com/peers/peer0.org2.iras.com/msp:/etc/hyperledger/msp/peer
-    - ./crypto-config/peerOrganizations/org2.iras.com/users:/etc/hyperledger/msp/users
+    - ./crypto/peerOrganizations/org2.fchain.com/peers/p0.org2.fchain.com/msp:/etc/hyperledger/msp/peer
+    - ./crypto/peerOrganizations/org2.fchain.com/users:/etc/hyperledger/msp/users
     - ./channel-artifacts:/etc/hyperledger/configtx
     depends_on:
-    - orderer.iras.com
+    - orderer.fchain.com
     - couchdb
     networks:
-    - irasnetwork
+    - fcnetwork
 
-  peer1.org2.iras.com:
-    container_name: peer1.org2.iras.com
+  p1.org2.fchain.com:
+    container_name: p1.org2.fchain.com
     image: hyperledger/fabric-peer${DOCKER_IMG_TAG}
     environment:
     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-    - CORE_PEER_ID=peer1.org2.iras.com
+    - CORE_PEER_ID=p1.org2.fchain.com
     - CORE_LOGGING_PEER=debug
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org2MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_ADDRESS=peer1.org2.iras.com:7051
+    - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org2.fchain.com:7051
+    - CORE_PEER_ADDRESS=p1.org2.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org2.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
     # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
-    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iras-net
+    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fchain-net
     - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
     - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
     # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
@@ -335,14 +256,104 @@ services:
     - 7353:7053
     volumes:
     - /var/run/:/host/var/run/
-    - ./crypto-config/peerOrganizations/org2.iras.com/peers/peer1.org2.iras.com/msp:/etc/hyperledger/msp/peer
-    - ./crypto-config/peerOrganizations/org2.iras.com/users:/etc/hyperledger/msp/users
+    - ./crypto/peerOrganizations/org2.fchain.com/peers/p1.org2.fchain.com/msp:/etc/hyperledger/msp/peer
+    - ./crypto/peerOrganizations/org2.fchain.com/users:/etc/hyperledger/msp/users
     - ./channel-artifacts:/etc/hyperledger/configtx
     depends_on:
-    - orderer.iras.com
+    - orderer.fchain.com
     - couchdb
     networks:
-    - irasnetwork
+    - fcnetwork
+
+  p0.org3.fchain.com:
+    container_name: p0.org3.fchain.com
+    image: hyperledger/fabric-peer${DOCKER_IMG_TAG}
+    environment:
+    - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+    - CORE_PEER_ID=p0.org3.fchain.com
+    - CORE_LOGGING_PEER=debug
+    - CORE_CHAINCODE_LOGGING_LEVEL=debug
+    - CORE_PEER_LOCALMSPID=Org3MSP
+    - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
+    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org3.fchain.com:7051
+    - CORE_PEER_ADDRESS=p0.org3.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org3.fchain.com:7051
+    # # the following setting starts chaincode containers on the same
+    # # bridge network as the peers
+    # # https://docs.docker.com/compose/networking/
+    # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
+    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fchain-net
+    - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
+    # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
+    # provide the credentials for ledger to connect to CouchDB.  The username and password must
+    # match the username and password set for the associated CouchDB.
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
+#    - CORE_PEER_GOSSIP_USELEADERELECTION=true
+#    - CORE_PEER_GOSSIP_ORGLEADER=false
+#    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    # command: peer node start --peer-chaincodedev=true
+    ports:
+    - 7451:7051
+    - 7453:7053
+    volumes:
+    - /var/run/:/host/var/run/
+    - ./crypto/peerOrganizations/org3.fchain.com/peers/p0.org3.fchain.com/msp:/etc/hyperledger/msp/peer
+    - ./crypto/peerOrganizations/org3.fchain.com/users:/etc/hyperledger/msp/users
+    - ./channel-artifacts:/etc/hyperledger/configtx
+    depends_on:
+    - orderer.fchain.com
+    - couchdb
+    networks:
+    - fcnetwork
+
+  p1.org3.fchain.com:
+    container_name: p1.org3.fchain.com
+    image: hyperledger/fabric-peer${DOCKER_IMG_TAG}
+    environment:
+    - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+    - CORE_PEER_ID=p1.org3.fchain.com
+    - CORE_LOGGING_PEER=debug
+    - CORE_CHAINCODE_LOGGING_LEVEL=debug
+    - CORE_PEER_LOCALMSPID=Org3MSP
+    - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
+    - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org3.fchain.com:7051
+    - CORE_PEER_ADDRESS=p1.org3.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org3.fchain.com:7051
+    # # the following setting starts chaincode containers on the same
+    # # bridge network as the peers
+    # # https://docs.docker.com/compose/networking/
+    # - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
+    - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fchain-net
+    - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
+    # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
+    # provide the credentials for ledger to connect to CouchDB.  The username and password must
+    # match the username and password set for the associated CouchDB.
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
+#    - CORE_PEER_GOSSIP_USELEADERELECTION=true
+#    - CORE_PEER_GOSSIP_ORGLEADER=false
+#    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    # command: peer node start --peer-chaincodedev=true
+    ports:
+    - 7551:7051
+    - 7553:7053
+    volumes:
+    - /var/run/:/host/var/run/
+    - ./crypto/peerOrganizations/org3.fchain.com/peers/p1.org3.fchain.com/msp:/etc/hyperledger/msp/peer
+    - ./crypto/peerOrganizations/org3.fchain.com/users:/etc/hyperledger/msp/users
+    - ./channel-artifacts:/etc/hyperledger/configtx
+    depends_on:
+    - orderer.fchain.com
+    - couchdb
+    networks:
+    - fcnetwork
 
   couchdb:
     container_name: couchdb
@@ -355,7 +366,7 @@ services:
     ports:
     - 5984:5984
     networks:
-    - irasnetwork
+    - fcnetwork
 
   cli1:
     container_name: cli1
@@ -364,11 +375,11 @@ services:
     environment:
     - GOPATH=/opt/gopath
     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-    - CORE_LOGGING_LEVEL=debug
+    - FABRIC_LOGGING_SPEC=debug
     - CORE_PEER_ID=cli1
-    - CORE_PEER_ADDRESS=peer0.org1.iras.com:7051
+    - CORE_PEER_ADDRESS=p0.org1.fchain.com:7051
     - CORE_PEER_LOCALMSPID=Org1MSP
-    - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.iras.com/users/Admin@org1.iras.com/msp
+    - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.fchain.com/users/Admin@org1.fchain.com/msp
     - CORE_CHAINCODE_KEEPALIVE=10
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
@@ -377,13 +388,13 @@ services:
     - ./cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli
     - ./channel-artifacts/:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     - ../chaincodes:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
-    - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+    - ./crypto:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
     - ./channel-artifacts/channel.block:/opt/gopath/src/github.com/hyperledger/fabric/peer
     networks:
-    - irasnetwork
+    - fcnetwork
     depends_on:
-    - orderer.iras.com
-    - peer0.org1.iras.com
+    - orderer.fchain.com
+    - p0.org1.fchain.com
     - couchdb
 
   cli2:
@@ -393,11 +404,11 @@ services:
     environment:
     - GOPATH=/opt/gopath
     - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-    - CORE_LOGGING_LEVEL=debug
+    - FABRIC_LOGGING_SPEC=debug
     - CORE_PEER_ID=cli2
-    - CORE_PEER_ADDRESS=peer0.org2.iras.com:7051
+    - CORE_PEER_ADDRESS=p0.org2.fchain.com:7051
     - CORE_PEER_LOCALMSPID=Org2MSP
-    - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.iras.com/users/Admin@org2.iras.com/msp
+    - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.fchain.com/users/Admin@org2.fchain.com/msp
     - CORE_CHAINCODE_KEEPALIVE=10
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
@@ -406,12 +417,43 @@ services:
     - ./cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli
     - ./channel-artifacts/:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     - ../chaincodes:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
-    - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+    - ./crypto:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
     - ./channel-artifacts/channel.block:/opt/gopath/src/github.com/hyperledger/fabric/peer
     networks:
-    - irasnetwork
+    - fcnetwork
     depends_on:
-    - orderer.iras.com
-    - peer0.org2.iras.com
+    - orderer.fchain.com
+    - p0.org2.fchain.com
     - couchdb
+
+  cli3:
+    container_name: cli3
+    image: hyperledger/fabric-tools${DOCKER_IMG_TAG}
+    tty: true
+    environment:
+    - GOPATH=/opt/gopath
+    - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+    - FABRIC_LOGGING_SPEC=debug
+    - CORE_PEER_ID=cli3
+    - CORE_PEER_ADDRESS=p0.org3.fchain.com:7051
+    - CORE_PEER_LOCALMSPID=Org3MSP
+    - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.fchain.com/users/Admin@org3.fchain.com/msp
+    - CORE_CHAINCODE_KEEPALIVE=10
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+    - /var/run/:/host/var/run/
+    - ./cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli
+    - ./channel-artifacts/:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    - ../chaincodes:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
+    - ./crypto:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+    - ./channel-artifacts/channel.block:/opt/gopath/src/github.com/hyperledger/fabric/peer
+    networks:
+    - fcnetwork
+    depends_on:
+    - orderer.fchain.com
+    - p0.org3.fchain.com
+    - couchdb
+
+
 

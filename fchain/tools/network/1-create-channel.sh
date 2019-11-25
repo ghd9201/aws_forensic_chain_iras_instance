@@ -4,3 +4,5 @@
 docker exec cli1 /opt/gopath/src/github.com/hyperledger/fabric/peer/cli/channel/setup-channel-org1.sh
 
 docker exec cli2 /opt/gopath/src/github.com/hyperledger/fabric/peer/cli/channel/setup-channel-org2.sh
+
+docker exec cli3 /opt/gopath/src/github.com/hyperledger/fabric/peer/cli/channel/setup-channel-org3.sh
