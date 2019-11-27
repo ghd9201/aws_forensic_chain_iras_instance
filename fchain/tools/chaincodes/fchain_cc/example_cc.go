@@ -29,8 +29,8 @@ import (
 var logger = shim.NewLogger("example_cc0")
 
 type Evidence struct {
-	ObjectType     string `json:"docType"`
-	EvidenceId     string `json:"evidenceId"`
+    ObjectType     string `json:"docType"`
+	EvidenceId     string `json:"evidenceId"`               // key
 	RegisterId     string `json:"registerId"`
 	Description    string `json:"description"`
 	CaseId         string `json:"caseId"`
@@ -39,8 +39,8 @@ type Evidence struct {
 }
 
 type Document struct {
-	ObjectType     string `json:"docType"`
-	DocumentId     string `json:"documentId"`
+    ObjectType     string `json:"docType"`
+	DocumentId     string `json:"documentId"`               // key
 	DocumentType   string `json:"documentType"`
 	WriterId       string `json:"writerId"`
 	WriteTime      string `json:"writeTime"`
@@ -49,9 +49,11 @@ type Document struct {
 	Hash           string `json:"hash"`
 }
 
-type Transfer struct {
-	ObjectType     string `json:"docType"`
-	EvidenceId     string `json:"evidenceId"`
+// I don't know it will
+type TransferEvent struct {
+    ObjectType     string `json:"docType"`
+	TransferNo     string `json:"transferNo"`               // key
+	EvidenceId     string `json:"evidenceId"`               // not key
 	SenderId       string `json:"senderId"`
 	SenderOrg      string `json:"senderOrg"`
 	Description    string `json:"description"`
@@ -123,105 +125,52 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return t.query(stub, args)
 	}
 
-	if function == "move" {
-		// Deletes an entity from its state
-		return t.move(stub, args)
-	}
-
-	if function == "add" {
-		// Add an entity to its state
-		return t.add(stub, args)
-	}
+	if function == "addEvidence" {
+    		// Add an entity to its state
+    		return t.add(stub, args)
+    }
+    if function == "addDocument" {
+    		// Add an entity to its state
+    		return t.add(stub, args)
+    }
 
 	logger.Errorf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0])
 	return shim.Error(fmt.Sprintf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0]))
 }
 
-func (t *SimpleChaincode) move(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	// must be an invoke
-	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
-	var X int          // Transaction value
-	var err error
+func (t *SimpleChaincode) addEvidence(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	if len(args) != 3 {
-		return shim.Error("Incorrect number of arguments. Expecting 4, function followed by 2 names and 1 value")
-	}
+  logger.Info("function addEvidence called!!!");
+	var ObjectType   string
+	var EvidenceId   string
+	var RegisterId   string
+	var Description  string
+    var CaseId       string
+	var Hash         string
+    var RegisterTime string
 
-	A = args[0]
-	B = args[1]
-
-	// Get the state from the ledger
-	// TODO: will be nice to have a GetAllState call to ledger
-	Avalbytes, err := stub.GetState(A)
-	if err != nil {
-		return shim.Error("Failed to get state")
-	}
-	if Avalbytes == nil {
-		return shim.Error("Entity not found")
-	}
-	Aval, _ = strconv.Atoi(string(Avalbytes))
-
-	Bvalbytes, err := stub.GetState(B)
-	if err != nil {
-		return shim.Error("Failed to get state")
-	}
-	if Bvalbytes == nil {
-		return shim.Error("Entity not found")
-	}
-	Bval, _ = strconv.Atoi(string(Bvalbytes))
-
-	// Perform the execution
-	X, err = strconv.Atoi(args[2])
-	if err != nil {
-		return shim.Error("Invalid transaction amount, expecting a integer value")
-	}
-	Aval = Aval - X
-	Bval = Bval + X
-	logger.Infof("Aval = %d, Bval = %d\n", Aval, Bval)
-
-	// Write the state back to the ledger
-	err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	err = stub.PutState(B, []byte(strconv.Itoa(Bval)))
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-    return shim.Success([]byte("move succeed"))
-}
-
-func (t *SimpleChaincode) saveUser(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-
-  logger.Info("function saveUser called!!!");
-	var Id string
-	var Name string
-	var Age string
-	var Sex string
-
-	if len(args) != 4 { // The number of input parameter should be 22
-		return shim.Error("Incorrect number of arguments. Expecting 4, function followed by 4 names")
+	if len(args) != 6 { // The number of input parameter should be 22
+		return shim.Error("Incorrect number of arguments. Expecting 6, function followed by 6 names")
 	}
 
 	var err error
 
-	Id = args[0]
-	Name = args[1]
-	Age = args[2]
-	Sex = args[3]
+	EvidenceId = args[0]
+	ReceiverId = args[1]
+	Description = args[2]
+	CaseId = args[3]
+	Hash = args[4]
+	RegisterTime = args[5]
 
 	// ==== Create the object and marshal to JSON ====
-	User := &User{"User", Name, Age, Sex}
-	UserJSONasBytes, err := json.Marshal(User)
+	Evidence := &Evidence{"Evidence", EvidenceId, ReceiverId, Description, CaseId, Hash, RegisterTime}
+	UserJSONasBytes, err := json.Marshal(Evidence)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
 	// Write the state to the ledger
-	err = stub.PutState(Id, UserJSONasBytes)
+	err = stub.PutState(EvidenceId, UserJSONasBytes)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -229,27 +178,46 @@ func (t *SimpleChaincode) saveUser(stub shim.ChaincodeStubInterface, args []stri
 	return shim.Success([]byte("Successfully save cp to the ledger"))
 }
 
+func (t *SimpleChaincode) addDocument(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-func (t *SimpleChaincode) add(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	// must be an invoke
-	var name string      // User Name
-	var balance int // User Balance
-	var err error
+  logger.Info("function addDocument called!!!");
+	var ObjectType   string
+	var DocumentId   string
+	var DocumentType string
+	var WriterId     string
+	var WriteTime    string
+	var Description  string
+    var CaseId       string
+	var Hash         string
 
-	if len(args) != 2 {
-		return shim.Error("Incorrect number of arguments. Expecting 2, function followed by 1 name and 1 value")
+	if len(args) != 7 { // The number of input parameter should be 22
+		return shim.Error("Incorrect number of arguments. Expecting 7, function followed by 7 names")
 	}
 
-	name = args[0]
-	balance, err = strconv.Atoi(args[1])
+	var err error
 
-	// Write the state to the ledger
-	err = stub.PutState(name, []byte(strconv.Itoa(balance)))
+	DocumentId = args[0]
+	DocumentType = args[1]
+	WriterId = args[2]
+	WriteTime = args[3]
+	Description = args[4]
+	CaseId = args[5]
+	Hash = args[6]
+
+	// ==== Create the object and marshal to JSON ====
+	Document := &Document{"Document", DocumentId, DocumentType, WriterId, WriteTime, Description, CaseId, Hash}
+	UserJSONasBytes, err := json.Marshal(Document)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-    return shim.Success([]byte("add succeed!!!"))
+	// Write the state to the ledger
+	err = stub.PutState(DocumentId, UserJSONasBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success([]byte("Successfully save cp to the ledger"))
 }
 
 // Deletes an entity from state
@@ -293,26 +261,14 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 		return shim.Error(jsonResp)
 	}
 
-	jsonResp := "{\"Name\":\"" + A + "\",\"Amount\":\"" + string(Avalbytes) + "\"}"
+	jsonResp := "{\"Name\":\"" + A + "\",\"Value\":\"" + string(Avalbytes) + "\"}"
 	logger.Infof("Query Response:%s\n", jsonResp)
 	return shim.Success(Avalbytes)
-}
-
-func (t *SimpleChaincode) test(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	jsonResp := "{\"Hello ChainCode !!!!!!!!!!!!!\"}"
-	logger.Infof("Query Response:%s\n", jsonResp)
-	return shim.Success([]byte(jsonResp))
-}
-
-func (t *SimpleChaincode) hello(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	jsonResp := "{\"Hello World !!!!!!!!!!!!!\"}"
-	logger.Infof("Query Response:%s\n", jsonResp)
-	return shim.Success([]byte(jsonResp))
 }
 
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
-		logger.Errorf("Error starting Simple chaincode: %s", err)
+		logger.Errorf("Error starting Fchain chaincode: %s", err)
 	}
 }

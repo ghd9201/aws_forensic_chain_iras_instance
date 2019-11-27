@@ -9,6 +9,8 @@ tags:
     description: Simple example endpoints
   - name: Balance
     description: Simple Balance Transfer Example
+  - name: Fchain
+    description: Simple Forensic Chain Example
   - name: Specification
     description: The swagger API specification
 
