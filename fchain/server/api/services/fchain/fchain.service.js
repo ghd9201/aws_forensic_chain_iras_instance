@@ -26,12 +26,12 @@ class FchainService {
 
     //args.push(req.body.balance.toString());
 
-    args.push(req.query.EvidenceId);
-    args.push(req.query.RegisterId);
-    args.push(req.query.Description);
-    args.push(req.query.CaseId);
-    args.push(req.query.Hash);
-    args.push(req.query.RegisterTime);
+    args.push(req.body.EvidenceId);
+    args.push(req.body.RegisterId);
+    args.push(req.body.Description);
+    args.push(req.body.CaseId);
+    args.push(req.body.Hash);
+    args.push(req.body.RegisterTime);
 
     peers.push('p0.org1.fchain.com');
     /*peers.push('p1.org1.fchain.com');
@@ -52,13 +52,13 @@ class FchainService {
 
     //args.push(req.body.balance.toString());
 
-    args.push(req.query.DocumentId);
-    args.push(req.query.DocumentType);
-    args.push(req.query.WriterId);
-    args.push(req.query.WriteTime);
-    args.push(req.query.Description);
-    args.push(req.query.CaseId);
-    args.push(req.query.Hash);
+    args.push(req.body.DocumentId);
+    args.push(req.body.DocumentType);
+    args.push(req.body.WriterId);
+    args.push(req.body.WriteTime);
+    args.push(req.body.Description);
+    args.push(req.body.CaseId);
+    args.push(req.body.Hash);
 
     peers.push('p0.org1.fchain.com');
     /*peers.push('p1.org1.fchain.com');

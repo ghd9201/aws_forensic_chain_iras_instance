@@ -127,11 +127,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 	if function == "addEvidence" {
     		// Add an entity to its state
-    		return t.add(stub, args)
+    		return t.addEvidence(stub, args)
     }
     if function == "addDocument" {
     		// Add an entity to its state
-    		return t.add(stub, args)
+    		return t.addDocument(stub, args)
     }
 
 	logger.Errorf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0])
@@ -141,7 +141,6 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 func (t *SimpleChaincode) addEvidence(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
   logger.Info("function addEvidence called!!!");
-	var ObjectType   string
 	var EvidenceId   string
 	var RegisterId   string
 	var Description  string
@@ -156,14 +155,14 @@ func (t *SimpleChaincode) addEvidence(stub shim.ChaincodeStubInterface, args []s
 	var err error
 
 	EvidenceId = args[0]
-	ReceiverId = args[1]
+	RegisterId = args[1]
 	Description = args[2]
 	CaseId = args[3]
 	Hash = args[4]
 	RegisterTime = args[5]
 
 	// ==== Create the object and marshal to JSON ====
-	Evidence := &Evidence{"Evidence", EvidenceId, ReceiverId, Description, CaseId, Hash, RegisterTime}
+	Evidence := &Evidence{"Evidence", EvidenceId, RegisterId, Description, CaseId, Hash, RegisterTime}
 	UserJSONasBytes, err := json.Marshal(Evidence)
 	if err != nil {
 		return shim.Error(err.Error())
@@ -181,7 +180,6 @@ func (t *SimpleChaincode) addEvidence(stub shim.ChaincodeStubInterface, args []s
 func (t *SimpleChaincode) addDocument(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
   logger.Info("function addDocument called!!!");
-	var ObjectType   string
 	var DocumentId   string
 	var DocumentType string
 	var WriterId     string
