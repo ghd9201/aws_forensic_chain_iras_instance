@@ -1,14 +1,12 @@
 swagger: "2.0"
 info:
   version: 1.0.0
-  title: Hyperledger Fabric 1.4 Forensic chain API
+  title: Hyperledger Fabric 1.4 Fchain  API
   description: Simple Api Sample for to interact with HLF 1.4 NETWORK
 basePath: /api/v1
 tags:
   - name: Examples
     description: Simple example endpoints
-  - name: Balance
-    description: Simple Balance Transfer Example
   - name: Fchain
     description: Simple Forensic Chain Example
   - name: Specification
@@ -31,6 +29,54 @@ definitions:
         type: string
         example: no_stress
 
+  document:
+    required:
+    - documentId
+    - documentType
+    - writerId
+    - writeTime
+    - description
+    - caseId
+    - hash
+    properties:
+      documentId:
+        type: string
+      documentType:
+        type: string
+      writerId:
+        type: string
+      writeTime:
+        type: string
+      description:
+        type: string 
+      caseId:
+        type: string
+      hash:
+        type: string
+
+  evidence:
+    required:
+    - evidenceId
+    - registerId
+    - description
+    - caseId
+    - hash
+    - registerTime
+    properties:
+      evidenceId:
+        type: string
+      registerId:
+        type: string
+      description:
+        type: string
+      caseId:
+        type: string
+      hash:
+        type: string
+      registerTime:
+        type: string
+
+
 paths:
   /fchain/addDocument:
     post:
@@ -38,41 +84,12 @@ paths:
         - Fchain
       description: Fetch all examples
       parameters:
-        - name: DocumentId
+        - name: documents 
           in: body
-          type: string
-          description: an evidence unique Id
           required: true
-        - name: DocumentType
-          in: body
-          type: string
-          description: an evidence unique Id
-          required: true
-        - name: WriterId
-          in: body
-          type: string
-          description: an evidence register
-          required: true
-        - name: WriteTime
-          in: body
-          type: string
-          description: an evidence description
-          required: true
-        - name: Description
-          in: body
-          type: string
-          description: the case id of this evidence
-          required: true
-        - name: CaseId
-          in: body
-          type: string
-          description: the integrity of this evidence
-          required: true
-        - name: Hash
-          in: body
-          type: string
-          description: the time of registration
-          required: true
+          schema:
+            $ref: "#definitions/document"
+          description: a document
       responses:
         200:
           description: Returns all examples
@@ -83,36 +100,13 @@ paths:
         - Fchain
       description: Fetch all examples
       parameters:
-        - name: EvidenceId
+        - name: evidences
           in: body
           type: string
-          description: an evidence unique Id
           required: true
-        - name: RegisterId
-          in: body
-          type: string
-          description: an evidence register
-          required: true
-        - name: Description
-          in: body
-          type: string
-          description: an evidence description
-          required: true
-        - name: CaseId
-          in: body
-          type: string
-          description: the case id of this evidence
-          required: true
-        - name: Hash
-          in: body
-          type: string
-          description: the integrity of this evidence
-          required: true
-        - name: RegisterTime
-          in: body
-          type: string
-          description: the time of registration
-          required: true
+          schema:
+            $ref: "$/definitions/evidence"
+          description: an evidence
       responses:
         200:
           description: Returns all examples

@@ -1,7 +1,7 @@
 {
-  "name": "SimpleBalanceAPI",
+  "name": "SimpleFchainAPI",
   "version": "1.0.0",
-  "description": "Simple Balance API",
+  "description": "Simple Fchain API",
   "main": "index.js",
   "scripts": {
     "start": "cd build && node main",
