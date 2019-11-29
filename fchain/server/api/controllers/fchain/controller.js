@@ -19,18 +19,9 @@ export class Controller {
       });
   }
 
-  addEvidence(req, res) {
+  addEvidenceRecord(req, res) {
     FchainService
-      .addEvidence(req, res)
-      .then(r => {
-        if (r) res.json(r);
-        else res.status(404).end();
-      });
-  }
-
-  addDocument(req, res) {
-    FchainService
-      .addDocument(req, res)
+      .addEvidenceRecord(req, res)
       .then(r => {
         if (r) res.json(r);
         else res.status(404).end();

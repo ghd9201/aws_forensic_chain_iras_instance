@@ -28,42 +28,20 @@ import (
 
 var logger = shim.NewLogger("example_cc0")
 
-type Evidence struct {
-    ObjectType     string `json:"docType"`
-	EvidenceId     string `json:"evidenceId"`               // key
-	RegisterId     string `json:"registerId"`
-	Description    string `json:"description"`
-	CaseId         string `json:"caseId"`
-	Hash           string `json:"hash"`
-	RegisterTime   string `json:"registerTime"`
+type EvidenceRecord struct {
+    ObjectId     		string `json:"objectId"`			//key?
+	Timestamp     		string `json:"timestamp"`
+	RegisterTime     	string `json:"registerTime"`
+	CaseId  		  	string `json:"caseId"`
+	EvidenceId         	string `json:"evidenceId"`
+	FileName          	string `json:"fileName"`
+	FileSize   			string `json:"fileSize"`
+	EventType   		string `json:"actionType"`
+	EventUserId   		string `json:"eventUserId"`
+	EventUserOrg   		string `json:"eventUserOrg"`
+	Description   		string `json:"description"`
+	EvidenceHash   		string `json:"evidenceHash"`
 }
-
-type Document struct {
-    ObjectType     string `json:"docType"`
-	DocumentId     string `json:"documentId"`               // key
-	DocumentType   string `json:"documentType"`
-	WriterId       string `json:"writerId"`
-	WriteTime      string `json:"writeTime"`
-	Description    string `json:"description"`
-	CaseId         string `json:"caseId"`
-	Hash           string `json:"hash"`
-}
-
-// I don't know it will
-type TransferEvent struct {
-    ObjectType     string `json:"docType"`
-	TransferNo     string `json:"transferNo"`               // key
-	EvidenceId     string `json:"evidenceId"`               // not key
-	SenderId       string `json:"senderId"`
-	SenderOrg      string `json:"senderOrg"`
-	Description    string `json:"description"`
-	ReceiverId     string `json:"receiverId"`
-	ReceiverOrg    string `json:"receiverOrg"`
-	CaseId         string `json:"caseId"`
-	Hash           string `json:"hash"`
-	TransferTime   string `json:"transferTime"`
-}
-
 
 // SimpleChaincode example simple Chaincode implementation
 type SimpleChaincode struct {
@@ -125,92 +103,59 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return t.query(stub, args)
 	}
 
-	if function == "addEvidence" {
+	if function == "addEvidenceRecord" {
     		// Add an entity to its state
     		return t.addEvidence(stub, args)
-    }
-    if function == "addDocument" {
-    		// Add an entity to its state
-    		return t.addDocument(stub, args)
     }
 
 	logger.Errorf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0])
 	return shim.Error(fmt.Sprintf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0]))
 }
 
-func (t *SimpleChaincode) addEvidence(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SimpleChaincode) addEvidenceRecord(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
   logger.Info("function addEvidence called!!!");
-	var EvidenceId   string
-	var RegisterId   string
-	var Description  string
-    var CaseId       string
-	var Hash         string
-    var RegisterTime string
+	var ObjectId   		string			//key?
+	var Timestamp   	string
+	var RegisterTime  	string
+    var CaseId       	string
+	var EvidenceId      string
+    var FileName 		string
+	var FileSize 		string
+	var EventType 		string
+	var EventUserId 	string
+	var EventUserOrg 	string
+	var Description 	string
+	var EvidenceHash 	string
 
-	if len(args) != 6 { // The number of input parameter should be 22
+	if len(args) != 12 { // The number of input parameter should be 22
 		return shim.Error("Incorrect number of arguments. Expecting 6, function followed by 6 names")
 	}
 
 	var err error
 
-	EvidenceId = args[0]
-	RegisterId = args[1]
-	Description = args[2]
+	ObjectId = args[0]
+	Timestamp = args[1]
+	RegisterTime = args[2]
 	CaseId = args[3]
-	Hash = args[4]
-	RegisterTime = args[5]
+	EvidenceId = args[4]
+	FileName = args[5]
+	FileSize = args[6]
+	EventType = args[7]
+	EventUserId = args[8]
+	EventUserOrg = args[9]
+	Description = args[10]
+	EvidenceHash = args[11]
 
 	// ==== Create the object and marshal to JSON ====
-	Evidence := &Evidence{"Evidence", EvidenceId, RegisterId, Description, CaseId, Hash, RegisterTime}
-	UserJSONasBytes, err := json.Marshal(Evidence)
+	EvidenceRecord := &EvidenceRecord{ObjectId, Timestamp, RegisterTime, CaseId, EvidenceId, FileName, FileSize,EventType,	EventUserId,EventUserOrg,Description,EvidenceHash}
+	UserJSONasBytes, err := json.Marshal(EvidenceRecord)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
 	// Write the state to the ledger
-	err = stub.PutState(EvidenceId, UserJSONasBytes)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	return shim.Success([]byte("Successfully save cp to the ledger"))
-}
-
-func (t *SimpleChaincode) addDocument(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-
-  logger.Info("function addDocument called!!!");
-	var DocumentId   string
-	var DocumentType string
-	var WriterId     string
-	var WriteTime    string
-	var Description  string
-    var CaseId       string
-	var Hash         string
-
-	if len(args) != 7 { // The number of input parameter should be 22
-		return shim.Error("Incorrect number of arguments. Expecting 7, function followed by 7 names")
-	}
-
-	var err error
-
-	DocumentId = args[0]
-	DocumentType = args[1]
-	WriterId = args[2]
-	WriteTime = args[3]
-	Description = args[4]
-	CaseId = args[5]
-	Hash = args[6]
-
-	// ==== Create the object and marshal to JSON ====
-	Document := &Document{"Document", DocumentId, DocumentType, WriterId, WriteTime, Description, CaseId, Hash}
-	UserJSONasBytes, err := json.Marshal(Document)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	// Write the state to the ledger
-	err = stub.PutState(DocumentId, UserJSONasBytes)
+	err = stub.PutState(ObjectId, UserJSONasBytes)
 	if err != nil {
 		return shim.Error(err.Error())
 	}

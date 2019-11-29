@@ -5,5 +5,4 @@ export default express
   .Router()
   .get('/getobject', controller.getObject)
   .get('/delete', controller.delete)
-  .post('/addDocument', controller.addDocument)
-  .post('/addEvidence', controller.addEvidence);
+  .post('/addEvidenceRecord', controller.addEvidenceRecord)
