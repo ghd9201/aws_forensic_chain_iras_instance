@@ -10,4 +10,8 @@ public interface EvidenceService {
     void upload(Evidence evidence) throws Exception;
 
     ArrayList<HashMap> selectAllEvidences() throws Exception;
+
+    int getEvidenceNo(String caseId) throws Exception;
+
+    Evidence selectEvidence(String caseId, int evidenceNo) throws Exception;
 }

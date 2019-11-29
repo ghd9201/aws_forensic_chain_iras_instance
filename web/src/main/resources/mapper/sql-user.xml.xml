@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mots.fchain.mapper.UserMapper">
+    <select id="selectUserList" resultType="com.mots.fchain.model.User">
+        <![CDATA[
+                SELECT
+                    userId,
+                    password,
+                    name,
+                    DATE_FORMAT(signupDate, '%Y.%m.%d %H:%i:%s') AS joinDate,
+                    org
+                FROM
+                    user
+                ORDER BY name DESC
+		]]>
+    </select>
+
+    <insert id="insertUser" parameterType="com.mots.fchain.model.User" useGeneratedKeys="true" keyProperty="userId">
+        <![CDATA[
+			INSERT INTO user
+			(
+				userId,
+				password,
+				name,
+				joinDate,
+				org
+			)
+			VALUES
+			(
+				#{userId},
+				#{password},
+				#{name},
+				NOW(),
+				#{org},
+			)
+		]]>
+    </insert>
+
+    <select id="selectUser" parameterType="String" resultType="com.mots.fchain.model.User">
+        <![CDATA[
+			SELECT
+				userId,
+                password,
+                name,
+                DATE_FORMAT(signupDate, '%Y.%m.%d %H:%i:%s') AS joinDate,
+                org
+			FROM
+				user
+			WHERE
+				userId = #{userId}
+		]]>
+    </select>
+</mapper>

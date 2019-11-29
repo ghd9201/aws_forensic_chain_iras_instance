@@ -6,11 +6,12 @@ import lombok.Data;
 public class Evidence {
     private String objectId;
     private String registerTime;
-    private String register;
+    private String registerId;
     private String caseId;
-    private String evidenceId;
+    private int evidenceNo;
     private String fileName;
-    private String fileSize;
+    private long fileSize;
+    private String filePath;
     private String description;
     private String hash;
 }

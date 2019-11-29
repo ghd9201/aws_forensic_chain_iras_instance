@@ -3,7 +3,10 @@ package com.mots.fchain.common;
 import com.mots.fchain.model.Evidence;
 import com.mots.fchain.model.User;
 
+import com.mots.fchain.service.CaseService;
+import com.mots.fchain.service.EvidenceService;
 import org.apache.commons.fileupload.FileItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -15,37 +18,49 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class FileUtils {
 
-    public Evidence parseFileInfo(FileItem file, User user, String path) throws Exception{
+    @Autowired
+    private CaseService caseService;
+
+    @Autowired
+    private EvidenceService evidenceService;
+
+
+    /* 업로드시 블록체인 넣을 데이터 생성 */
+    public Evidence parseFileInfo(FileItem file, String caseId, User user, String description,  String path, String fileHash) throws Exception{
         if(ObjectUtils.isEmpty(file)){
             return null;
         }
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy");
         ZonedDateTime current = ZonedDateTime.now();
 
-        String newFileName, originalFileName, fileExt, documentId;
+        String fileName, hash;
 
-        originalFileName = file.getName();
+        int evidenceNo = 0;
 
-        int pos = originalFileName.lastIndexOf(".");
+        if(caseId == null){
+            /* 사건 번호 생성 - 사건 부호는 '형제'로 고정 */
+            caseId = current.format(format)+"-형제-"+ caseService.getCaseCnt();
+        }
 
-        fileExt = originalFileName.substring(pos+1);
+        /* 증거 번호 생성 - 증거 부호는 '증거'로 고정 */
+        evidenceNo = (evidenceService.getEvidenceNo(caseId) + 1);
 
+        fileName = file.getName();
         Evidence uploadEvidence = new Evidence();
 
-        //newFileName = Long.toString(System.nanoTime()) + fileExt;
-        documentId = bytesToHex(sha256(originalFileName));
 
-        uploadEvidence.setDocumentId(documentId);
+        /* 파일 정보 생성 - 블록체인 저장 */
+        uploadEvidence.setRegisterId(user.getUserId());
+        uploadEvidence.setCaseId(caseId);
+        uploadEvidence.setEvidenceNo(evidenceNo);
+        uploadEvidence.setFileName(fileName);
         uploadEvidence.setFileSize(file.getSize());
-        uploadEvidence.setOriginalFileName(file.getName());
-        uploadEvidence.setStoredFiledPath(path);
-        uploadEvidence.setCreateDate(current.format(format));
-        uploadEvidence.setCreatorName(member.getName());
-        uploadEvidence.setDeleteStatus('N');
+        uploadEvidence.setFilePath(path);
+        uploadEvidence.setDescription(description);
+        uploadEvidence.setHash(fileHash);
 
-        uploadEvidence.setSecurityLevel(securityLevel);
-        return uploadDocument;
+        return uploadEvidence;
     }
 
 

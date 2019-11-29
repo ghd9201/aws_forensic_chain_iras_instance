@@ -40,8 +40,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/index/login.do")
-    public ModelAndView loginMember(@RequestParam String userId, @RequestParam String password, HttpServletResponse resposne, HttpServletRequest req) throws Exception{
-        ModelAndView mv = new ModelAndView("/iras/mypage");
+    public ModelAndView loginUser(@RequestParam String userId, @RequestParam String password, HttpServletResponse resposne, HttpServletRequest req) throws Exception{
+        ModelAndView mv = new ModelAndView("/fchain/mypage");
 
         this.user = new User(userService.login(userId, password));
 
@@ -55,12 +55,12 @@ public class UserController {
 
     @GetMapping(value = "/mypage")
     public ModelAndView mainPage(HttpServletRequest req) throws Exception{
-        ModelAndView mv = new ModelAndView("/iras/mypage");
+        ModelAndView mv = new ModelAndView("/fchain/mypage");
 
 
 
         if(this.user == null){
-            this.user = (User)req.getSession().getAttribute("member");
+            this.user = (User)req.getSession().getAttribute("user");
         }
 
         /* 로그인 완료 이벤트 처리 */
@@ -70,7 +70,7 @@ public class UserController {
 
     @GetMapping(value = "/index/signupForm.do")
     public ModelAndView signupForm(@RequestParam User user) throws Exception{
-        ModelAndView mv = new ModelAndView("/iras/index");
+        ModelAndView mv = new ModelAndView("/fchain/index");
 
         /* 회원가입 입력 유효성 검증 실패 처리 */
 

@@ -18,4 +18,12 @@ public class EvidenceServiceImpl implements EvidenceService {
     public ArrayList<HashMap> selectAllEvidences() throws Exception{
         return evidenceMapper.selectAllEvidences();
     }
+
+    public int getEvidenceNo(String caseId) throws Exception{
+        return evidenceMapper.getEvidenceNo(caseId);
+    }
+
+    public Evidence selectEvidence(String caseId, int evidenceNo) throws Exception{
+        return evidenceMapper.selectEvidence(caseId, evidenceNo);
+    }
 }

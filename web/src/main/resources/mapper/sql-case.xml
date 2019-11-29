@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mots.fchain.mapper.CaseMapper">
+    <resultMap id="caseMapping" type="com.mots.fchain.model.Case">
+        <result property="seq" column="seq" />
+        <result property="caseId" column="caseId" />
+        <result property="beginDate" column="beginDate" />
+        <result property="endDate" column="endDate" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <insert id="insertCase" parameterType="com.mots.fchain.model.Case" useGeneratedKeys="true" keyProperty="seq">
+        <![CDATA[
+			INSERT INTO case_tb
+			(
+				caseId,
+				beginDate,
+			)
+			VALUES
+			(
+				#{caseId},
+				NOW(),
+			)
+		]]>
+    </insert>
+    <select id="getCaseCnt" resultType="int">
+        <![CDATA[
+                SELECT
+                    COUNT(*)
+                FROM
+                    case_tb
+		]]>
+    </select>
+</mapper>

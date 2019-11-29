@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mots.fchain.mapper.UserMapper">
+    <resultMap id="evidenceMapping" type="com.mots.fchain.model.Evidence">
+        <result property="objectId" column="objectId" />
+        <result property="registerTime" column="registerTime" />
+        <result property="registerId" column="registerId" />
+        <result property="caseId" column="caseId" />
+        <result property="evidenceNo" column="evidenceNo" />
+        <result property="fileName" column="fileName" />
+        <result property="fileSize" column="fileSize" />
+        <result property="filePath" column="filePath" />
+        <result property="description" column="description" />
+        <result property="hash" column="hash" />
+    </resultMap>
+
+    <resultMap id="evidenceTimeMapping" type="com.mots.fchain.model.Evidence">
+        <result property="caseId" column="caseId" />
+        <result property="evidenceNo" column="evidenceNo" />
+    </resultMap>
+
+    <insert id="insertEvidence" parameterType="com.mots.fchain.model.Evidence" useGeneratedKeys="true" keyProperty="objectId">
+        <![CDATA[
+			INSERT INTO evidence
+			(
+				registerTime,
+				registerId,
+				caseId,
+				evidenceNo,
+				fileName,
+				fileSize,
+				filePath,
+				description,
+				hash
+			)
+			VALUES
+			(
+				NOW(),
+				#{registerId},
+				#{caseId},
+				#{evidenceNo},
+				#{fileName},
+				#{fileSize},
+				#{filePath},
+				#{description},
+				#{hash}
+			)
+		]]>
+    </insert>
+    <select id="selectAllEvidences" resultType="java.util.HashMap" resultMap="evidenceMapping">
+        <![CDATA[
+                SELECT
+                    objectId,
+                    DATE_FORMAT(create_date, '%Y.%m.%d %H:%i:%s') AS registerTime,
+				    registerId,
+				    caseId,
+				    evidenceNo,
+				    fileName,
+				    fileSize,
+				    filePath,
+				    description,
+				    hash
+                FROM
+                    evidence
+                ORDER BY registerTime DESC
+		]]>
+    </select>
+
+    <select id="getEvidenceNo" resultType="int" parameterType="String">
+       <![CDATA[
+			SELECT
+				COUNT(*)
+			FROM
+				evidence
+			WHERE
+				caseId = #{caseId}
+		]]>
+    </select>
+
+    <select id="getEvidenceTime" resultType="com.mots.fchain.model.Evidence" parameterType="String">
+       <![CDATA[
+			SELECT
+				*
+			FROM
+				evidence
+			WHERE
+				caseId = #{caseId}
+				AND evidenceNo = #{evidenceNo}
+		]]>
+    </select>
+</mapper>
