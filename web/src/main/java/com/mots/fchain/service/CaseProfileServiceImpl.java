@@ -1,20 +1,24 @@
 package com.mots.fchain.service;
 
-import com.mots.fchain.mapper.CaseMapper;
+
+
+import com.mots.fchain.mapper.CaseProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CaseServiceImpl implements CaseService {
+
+public class CaseProfileServiceImpl implements CaseProfileService {
 
     @Autowired
-    private CaseMapper caseMapper;
+    private CaseProfileMapper caseProfileMapper;
 
     /* 사건 생성 */
+
     public void makeCase(String caseId) throws Exception{
-        caseMapper.insertCase(caseId);
+        caseProfileMapper.insertCase(caseId);
     }
 
     /* 사건 번호 얻어오기 */
     public int getCaseCnt() throws Exception{
-        return caseMapper.getCaseCnt();
+        return caseProfileMapper.getCaseCnt();
     }
 }

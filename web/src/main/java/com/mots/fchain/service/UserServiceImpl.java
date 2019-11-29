@@ -10,9 +10,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private EvidenceMapper evidenceMapper;
-
     /* 회원 가입 */
     public void signup(User user) throws Exception{
         userMapper.insertUser(user);

@@ -8,9 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.mots.fchain.common.FileUtils;
 import com.mots.fchain.model.Evidence;
 import com.mots.fchain.model.User;
-import com.mots.fchain.service.CaseService;
+import com.mots.fchain.service.CaseProfileService;
 import com.mots.fchain.service.EvidenceService;
-import com.mots.fchain.service.UserService;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -40,7 +39,7 @@ public class EvidenceController {
     private static EvidenceService evidenceService;
 
     @Autowired
-    private static CaseService caseService;
+    private static CaseProfileService caseService;
 
     @Autowired
     private static FileUtils fileUtils;

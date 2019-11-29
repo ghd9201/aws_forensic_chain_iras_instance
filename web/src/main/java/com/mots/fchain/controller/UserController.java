@@ -6,8 +6,11 @@ import com.mots.fchain.common.ServletUtil;
 import com.mots.fchain.model.User;
 import com.mots.fchain.service.EvidenceService;
 import com.mots.fchain.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Controller
 public class UserController {
 
     @Autowired
@@ -35,13 +39,23 @@ public class UserController {
 
     @GetMapping(value = "/index")
     public ModelAndView indexPage() throws Exception{
-        ModelAndView mv = new ModelAndView("/fchain/index");
+        ModelAndView mv = new ModelAndView("/index");
         return mv;
     }
 
-    @RequestMapping(value = "/index/login.do")
+    @GetMapping(value = "/index/login.do")
+    public ModelAndView loginUser(HttpServletResponse resposne, HttpServletRequest req) throws Exception {
+        ModelAndView mv = new ModelAndView("/index");
+
+        return mv;
+    }
+
+    @PostMapping(value = "/index/login.do")
     public ModelAndView loginUser(@RequestParam String userId, @RequestParam String password, HttpServletResponse resposne, HttpServletRequest req) throws Exception{
-        ModelAndView mv = new ModelAndView("/fchain/mypage");
+        ModelAndView mv = new ModelAndView("/index");
+
+        System.out.println("userId"+userId);
+        System.out.println("password"+userId);
 
         this.user = new User(userService.login(userId, password));
 
@@ -98,9 +112,5 @@ public class UserController {
         System.out.println( result );
         response.getWriter().write(gson.toJson(result));
     }
-
-
-
-
 }
 

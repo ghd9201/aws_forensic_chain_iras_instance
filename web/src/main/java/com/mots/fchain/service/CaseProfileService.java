@@ -2,7 +2,7 @@ package com.mots.fchain.service;
 
 import com.mots.fchain.model.Case;
 
-public interface CaseService {
+public interface CaseProfileService {
     /* 사건 생성 */
     void makeCase(String caseId) throws Exception;
 

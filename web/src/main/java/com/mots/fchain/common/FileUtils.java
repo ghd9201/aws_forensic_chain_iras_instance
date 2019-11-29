@@ -3,7 +3,7 @@ package com.mots.fchain.common;
 import com.mots.fchain.model.Evidence;
 import com.mots.fchain.model.User;
 
-import com.mots.fchain.service.CaseService;
+import com.mots.fchain.service.CaseProfileService;
 import com.mots.fchain.service.EvidenceService;
 import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 public class FileUtils {
 
     @Autowired
-    private CaseService caseService;
+    private CaseProfileService caseService;
 
     @Autowired
     private EvidenceService evidenceService;
