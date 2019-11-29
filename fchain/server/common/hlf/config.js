@@ -13,8 +13,10 @@ hfc.setConfigSetting('network-connection-profile-path', path.join(__dirname, 'co
 if (env == 'first_network') {
   hfc.setConfigSetting('Org1-connection-profile-path', path.join(__dirname, 'connection-profile', `org1-${env}.yaml`));
   hfc.setConfigSetting('Org2-connection-profile-path', path.join(__dirname, 'connection-profile', `org1-${env}.yaml`));
+  hfc.setConfigSetting('Org3-connection-profile-path', path.join(__dirname, 'connection-profile', `org3-${env}.yaml`));
 } else {
   hfc.setConfigSetting('Org1-connection-profile-path', path.join(__dirname, 'connection-profile', `org1-${env}.yaml`));
   hfc.setConfigSetting('Org2-connection-profile-path', path.join(__dirname, 'connection-profile', `org2-${env}.yaml`));
+  hfc.setConfigSetting('Org3-connection-profile-path', path.join(__dirname, 'connection-profile', `org3-${env}.yaml`));
 }
 hfc.addConfigFile(path.join(__dirname, 'config.json'));
