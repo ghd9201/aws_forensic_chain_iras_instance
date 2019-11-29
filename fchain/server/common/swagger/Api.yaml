@@ -29,7 +29,7 @@ definitions:
         type: string
         example: no_stress
 
-  evidenceRecord:
+  record:
     required:
     - objectId
     - timestamp
@@ -77,12 +77,12 @@ paths:
         - Fchain
       description: Fetch all examples
       parameters:
-        - name: evidenceRecords
+        - name: records
           in: body
+          description: an evidenceRecord
           required: true
           schema:
-            $ref: "#/definitions/evidenceRecord"
-          description: an evidenceRecord
+            $ref: "#/definitions/record"
       responses:
         200:
           description: Returns all examples

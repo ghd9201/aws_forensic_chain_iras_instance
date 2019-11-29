@@ -29,88 +29,63 @@ definitions:
         type: string
         example: no_stress
 
-  document:
+  record:
     required:
-    - documentId
-    - documentType
-    - writerId
-    - writeTime
-    - description
-    - caseId
-    - hash
-    properties:
-      documentId:
-        type: string
-      documentType:
-        type: string
-      writerId:
-        type: string
-      writeTime:
-        type: string
-      description:
-        type: string 
-      caseId:
-        type: string
-      hash:
-        type: string
-
-  evidence:
-    required:
-    - evidenceId
-    - registerId
-    - description
-    - caseId
-    - hash
+    - objectId
+    - timestamp
     - registerTime
+    - caseId
+    - evidenceId
+    - fileName
+    - fileSize
+    - eventType
+    - eventUserId
+    - eventUserOrg
+    - description
+    - evidenceHash
     properties:
-      evidenceId:
+      objectId:
         type: string
-      registerId:
-        type: string
-      description:
-        type: string
-      caseId:
-        type: string
-      hash:
+      timestamp:
         type: string
       registerTime:
         type: string
-
+      caseId:
+        type: string
+      evidenceId:
+        type: string 
+      fileName:
+        type: string
+      fileSize:
+        type: string
+      eventType:
+        type: string
+      eventUserId:
+        type: string
+      eventUserOrg:
+        type: string
+      description:
+        type: string
+      evidenceHash:
+        type: string
 
 paths:
-  /fchain/addDocument:
+
+  /fchain/addEvidenceRecord:
     post:
       tags:
         - Fchain
       description: Fetch all examples
       parameters:
-        - name: documents 
+        - name: records
           in: body
+          description: an evidenceRecord
           required: true
           schema:
-            $ref: "#/definitions/document"
-          description: a document
+            $ref: "#/definitions/record"
       responses:
         200:
           description: Returns all examples
-
-  /fchain/addEvidence:
-    post:
-      tags:
-        - Fchain
-      description: Fetch all examples
-      parameters:
-        - name: evidences
-          in: body
-          type: string
-          required: true
-          schema:
-            $ref: "#/definitions/evidence"
-          description: an evidence
-      responses:
-        200:
-          description: Returns all examples
-
 
   /examples:
     get:

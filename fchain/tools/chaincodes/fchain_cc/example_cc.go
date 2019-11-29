@@ -29,18 +29,18 @@ import (
 var logger = shim.NewLogger("example_cc0")
 
 type EvidenceRecord struct {
-    ObjectId     		string `json:"objectId"`			//key?
-	Timestamp     		string `json:"timestamp"`
-	RegisterTime     	string `json:"registerTime"`
-	CaseId  		  	string `json:"caseId"`
-	EvidenceId         	string `json:"evidenceId"`
-	FileName          	string `json:"fileName"`
-	FileSize   			string `json:"fileSize"`
-	EventType   		string `json:"actionType"`
-	EventUserId   		string `json:"eventUserId"`
-	EventUserOrg   		string `json:"eventUserOrg"`
-	Description   		string `json:"description"`
-	EvidenceHash   		string `json:"evidenceHash"`
+	ObjectId		string `json:"objectId"`			//key?
+	Timestamp		string `json:"timestamp"`
+	RegisterTime		string `json:"registerTime"`
+	CaseId			string `json:"caseId"`
+	EvidenceId		string `json:"evidenceId"`
+	FileName		string `json:"fileName"`
+	FileSize		string `json:"fileSize"`
+	EventType		string `json:"actionType"`
+	EventUserId		string `json:"eventUserId"`
+	EventUserOrg		string `json:"eventUserOrg"`
+	Description		string `json:"description"`
+	EvidenceHash		string `json:"evidenceHash"`
 }
 
 // SimpleChaincode example simple Chaincode implementation
@@ -104,9 +104,9 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	}
 
 	if function == "addEvidenceRecord" {
-    		// Add an entity to its state
-    		return t.addEvidence(stub, args)
-    }
+		// Add an entity to its state
+		return t.addEvidenceRecord(stub, args)
+	}
 
 	logger.Errorf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0])
 	return shim.Error(fmt.Sprintf("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'. But got: %v", args[0]))
@@ -115,18 +115,18 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 func (t *SimpleChaincode) addEvidenceRecord(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
   logger.Info("function addEvidence called!!!");
-	var ObjectId   		string			//key?
-	var Timestamp   	string
-	var RegisterTime  	string
-    var CaseId       	string
-	var EvidenceId      string
-    var FileName 		string
-	var FileSize 		string
-	var EventType 		string
-	var EventUserId 	string
-	var EventUserOrg 	string
-	var Description 	string
-	var EvidenceHash 	string
+	var ObjectId		string			//key?
+	var Timestamp		string
+	var RegisterTime	string
+	var CaseId		string
+	var EvidenceId		string
+	var FileName		string
+	var FileSize		string
+	var EventType		string
+	var EventUserId		string
+	var EventUserOrg	string
+	var Description		string
+	var EvidenceHash	string
 
 	if len(args) != 12 { // The number of input parameter should be 22
 		return shim.Error("Incorrect number of arguments. Expecting 6, function followed by 6 names")

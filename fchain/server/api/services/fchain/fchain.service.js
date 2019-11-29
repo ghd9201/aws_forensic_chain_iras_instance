@@ -26,18 +26,18 @@ class FchainService {
 
     //args.push(req.body.balance.toString());
 
-    args.push(req.body.ObjectId);
-    args.push(req.body.Timestamp);
-    args.push(req.body.RegisterTime);
-    args.push(req.body.CaseId);
-    args.push(req.body.EvidenceId);
-    args.push(req.body.FileName);
-    args.push(req.body.FileSize);
-    args.push(req.body.EventType);
-    args.push(req.body.EventUserId);
-    args.push(req.body.EventUserOrg);
-    args.push(req.body.Description);
-    args.push(req.body.EvidenceHash);
+    args.push(req.body.objectId);
+    args.push(req.body.timestamp);
+    args.push(req.body.registerTime);
+    args.push(req.body.caseId);
+    args.push(req.body.evidenceId);
+    args.push(req.body.fileName);
+    args.push(req.body.fileSize);
+    args.push(req.body.eventType);
+    args.push(req.body.eventUserId);
+    args.push(req.body.eventUserOrg);
+    args.push(req.body.description);
+    args.push(req.body.evidenceHash);
 
 
     peers.push('p0.org1.fchain.com');
