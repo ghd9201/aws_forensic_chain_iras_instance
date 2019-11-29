@@ -23,32 +23,25 @@ DROP TABLE IF EXISTS `evidence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `evidence` (
-  `objectId` varchar(45) NOT NULL,
+  `objectId` int(11) NOT NULL AUTO_INCREMENT,
   `registerTime` datetime NOT NULL,
   `registerId` varchar(20) NOT NULL,
   `caseId` varchar(45) NOT NULL,
-  `evidenceId` varchar(45) NOT NULL,
+  `evidenceNo` int(11) NOT NULL,
   `fileName` varchar(45) NOT NULL,
   `fileSize` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `hash` varchar(255) NOT NULL,
   `filePath` varchar(255) NOT NULL,
   PRIMARY KEY (`objectId`),
-  UNIQUE KEY `evidenceId_UNIQUE` (`evidenceId`),
+  UNIQUE KEY `evidenceId_UNIQUE` (`evidenceNo`),
   UNIQUE KEY `hash_UNIQUE` (`hash`),
   KEY `foreign_key_rule1_idx` (`registerId`),
-  CONSTRAINT `foreign_key_rule1` FOREIGN KEY (`registerId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `foreign_key_rule2_idx` (`caseId`),
+  CONSTRAINT `foreign_key_rule1` FOREIGN KEY (`registerId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `foreign_key_rule2` FOREIGN KEY (`caseId`) REFERENCES `case_tb` (`caseId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evidence`
---
-
-LOCK TABLES `evidence` WRITE;
-/*!40000 ALTER TABLE `evidence` DISABLE KEYS */;
-/*!40000 ALTER TABLE `evidence` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -59,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-29 18:24:04
+-- Dump completed on 2019-11-30  1:23:40

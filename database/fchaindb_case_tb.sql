@@ -16,19 +16,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user`
+-- Table structure for table `case_tb`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `case_tb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `userId` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `joinDate` datetime NOT NULL,
-  `org` varchar(45) NOT NULL,
-  PRIMARY KEY (`userId`)
+CREATE TABLE `case_tb` (
+  `seq` int(11) NOT NULL AUTO_INCREMENT,
+  `caseId` varchar(45) NOT NULL,
+  `beginDate` datetime NOT NULL,
+  `endDate` datetime DEFAULT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'ongoing',
+  PRIMARY KEY (`seq`),
+  UNIQUE KEY `caseId_UNIQUE` (`caseId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
