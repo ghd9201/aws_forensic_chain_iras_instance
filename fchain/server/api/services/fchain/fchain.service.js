@@ -47,6 +47,9 @@ class FchainService {
     peers.push('p0.org3.fchain.com');
     peers.push('p1.org3.fchain.com');*/
 
+
+    l.debug(`invoke args:${args}`);
+
     l.debug(`invoke peers:${peers}`);
     return Promise.resolve(transaction.invokeChainCode(peers, 'fchannel', 'fchain',
       'addEvidenceRecord', args, 'admin', 'Org1'));

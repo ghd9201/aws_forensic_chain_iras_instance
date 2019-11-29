@@ -77,12 +77,12 @@ paths:
         - Fchain
       description: Fetch all examples
       parameters:
-        - name: evidenceRecord
+        - name: evidenceRecords
           in: body
           required: true
           schema:
             $ref: "#/definitions/evidenceRecord"
-          description: an evidence
+          description: an evidenceRecord
       responses:
         200:
           description: Returns all examples
