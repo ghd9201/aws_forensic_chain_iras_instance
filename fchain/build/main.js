@@ -538,9 +538,11 @@ hfc.setConfigSetting('network-connection-profile-path', path.join(__dirname, 'co
 if (env == 'first_network') {
   hfc.setConfigSetting('Org1-connection-profile-path', path.join(__dirname, 'connection-profile', `org1-${env}.yaml`));
   hfc.setConfigSetting('Org2-connection-profile-path', path.join(__dirname, 'connection-profile', `org1-${env}.yaml`));
+  hfc.setConfigSetting('Org3-connection-profile-path', path.join(__dirname, 'connection-profile', `org3-${env}.yaml`));
 } else {
   hfc.setConfigSetting('Org1-connection-profile-path', path.join(__dirname, 'connection-profile', `org1-${env}.yaml`));
   hfc.setConfigSetting('Org2-connection-profile-path', path.join(__dirname, 'connection-profile', `org2-${env}.yaml`));
+  hfc.setConfigSetting('Org3-connection-profile-path', path.join(__dirname, 'connection-profile', `org3-${env}.yaml`));
 }
 hfc.addConfigFile(path.join(__dirname, 'config.json'));
 /* WEBPACK VAR INJECTION */}.call(exports, "server/common/hlf"))
@@ -747,7 +749,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = express.Router().get('/getobject', _controller2.default.getObject).get('/delete', _controller2.default.delete).post('/addDocument', _controller2.default.addDocument).post('/addEvidence', _controller2.default.addEvidence);
+exports.default = express.Router().get('/getobject', _controller2.default.getObject).get('/delete', _controller2.default.delete).post('/addEvidenceRecord', _controller2.default.addEvidenceRecord);
 
 /***/ }),
 /* 27 */
@@ -780,14 +782,8 @@ class Controller {
     });
   }
 
-  addEvidence(req, res) {
-    _fchain2.default.addEvidence(req, res).then(r => {
-      if (r) res.json(r);else res.status(404).end();
-    });
-  }
-
-  addDocument(req, res) {
-    _fchain2.default.addDocument(req, res).then(r => {
+  addEvidenceRecord(req, res) {
+    _fchain2.default.addEvidenceRecord(req, res).then(r => {
       if (r) res.json(r);else res.status(404).end();
     });
   }
@@ -829,45 +825,25 @@ class FchainService {
     return Promise.resolve(transaction.queryChainCode(null, 'fchannel', 'fchain', args, 'delete', 'admin', 'Org1'));
   }
 
-  addEvidence(req, res) {
+  addEvidenceRecord(req, res) {
     _logger2.default.info(`${this.constructor.name}.byId(${req})`);
     const args = [];
     const peers = [];
 
     //args.push(req.body.balance.toString());
 
-    args.push(req.body.EvidenceId);
-    args.push(req.body.RegisterId);
-    args.push(req.body.Description);
-    args.push(req.body.CaseId);
-    args.push(req.body.Hash);
+    args.push(req.body.ObjectId);
+    args.push(req.body.Timestamp);
     args.push(req.body.RegisterTime);
-
-    peers.push('p0.org1.fchain.com');
-    /*peers.push('p1.org1.fchain.com');
-    peers.push('p0.org2.fchain.com');
-    peers.push('p1.org2.fchain.com');
-    peers.push('p0.org3.fchain.com');
-    peers.push('p1.org3.fchain.com');*/
-
-    _logger2.default.debug(`invoke peers:${peers}`);
-    return Promise.resolve(transaction.invokeChainCode(peers, 'fchannel', 'fchain', 'addEvidence', args, 'admin', 'Org1'));
-  }
-
-  addDocument(req, res) {
-    _logger2.default.info(`${this.constructor.name}.byId(${req})`);
-    const args = [];
-    const peers = [];
-
-    //args.push(req.body.balance.toString());
-
-    args.push(req.body.DocumentId);
-    args.push(req.body.DocumentType);
-    args.push(req.body.WriterId);
-    args.push(req.body.WriteTime);
-    args.push(req.body.Description);
     args.push(req.body.CaseId);
-    args.push(req.body.Hash);
+    args.push(req.body.EvidenceId);
+    args.push(req.body.FileName);
+    args.push(req.body.FileSize);
+    args.push(req.body.EventType);
+    args.push(req.body.EventUserId);
+    args.push(req.body.EventUserOrg);
+    args.push(req.body.Description);
+    args.push(req.body.EvidenceHash);
 
     peers.push('p0.org1.fchain.com');
     /*peers.push('p1.org1.fchain.com');
@@ -877,7 +853,7 @@ class FchainService {
     peers.push('p1.org3.fchain.com');*/
 
     _logger2.default.debug(`invoke peers:${peers}`);
-    return Promise.resolve(transaction.invokeChainCode(peers, 'fchannel', 'fchain', 'addDocument', args, 'admin', 'Org1'));
+    return Promise.resolve(transaction.invokeChainCode(peers, 'fchannel', 'fchain', 'addEvidenceRecord', args, 'admin', 'Org1'));
   }
 }
 
