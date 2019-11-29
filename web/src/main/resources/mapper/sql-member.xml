@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mots.iras.iras_project.mapper.MemberMapper">
+    <select id="selectMemberList" resultType="com.mots.iras.iras_project.model.Member">
+        <![CDATA[
+                SELECT
+                    email,
+                    password,
+                    name,
+                    phone,
+                    DATE_FORMAT(signupDate, '%Y.%m.%d %H:%i:%s') AS signupDate,
+                    position
+                FROM
+                    member
+                ORDER BY name DESC
+		]]>
+    </select>
+
+    <insert id="insertMember" parameterType="com.mots.iras.iras_project.model.Member" useGeneratedKeys="true" keyProperty="email">
+        <![CDATA[
+			INSERT INTO member
+			(
+				email,
+				password,
+				name,
+				phone,
+				signupDate,
+				position
+			)
+			VALUES
+			(
+				#{email},
+				#{password},
+				#{name},
+				#{phone},
+				NOW(),
+				#{position},
+			)
+		]]>
+    </insert>
+
+    <select id="selectMember" parameterType="String" resultType="com.mots.iras.iras_project.model.Member">
+        <![CDATA[
+			SELECT
+				email,
+                password,
+                name,
+                phone,
+                DATE_FORMAT(signupDate, '%Y.%m.%d %H:%i:%s') AS signupDate,
+                position
+			FROM
+				member
+			WHERE
+				email = #{email}
+		]]>
+    </select>
+</mapper>

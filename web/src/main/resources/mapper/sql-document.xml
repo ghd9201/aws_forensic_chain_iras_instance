@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mots.iras.iras_project.mapper.DocumentMapper">
+    <resultMap id="documentMapping" type="com.mots.iras.iras_project.model.Document">
+        <result property="documentId" column="document_id" />
+        <result property="readCnt" column="read_cnt" />
+        <result property="securityLevel" column="security_level" />
+        <result property="uploadOption" column="upload_option" />
+        <result property="originalFileName" column="original_file_name" />
+        <result property="storedFiledPath" column="stored_filed_path" />
+        <result property="fileSize" column="file_size" />
+        <result property="creatorName" column="creator_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updatorName" column="updator_name" />
+        <result property="updatedDate" column="update_date" />
+        <result property="deleteStatus" column="delete_status" />
+        <result property="seq" column="seq" />
+    </resultMap>
+
+    <insert id="insertDocument" parameterType="com.mots.iras.iras_project.model.Document" useGeneratedKeys="true" keyProperty="documentId">
+        <![CDATA[
+			INSERT INTO document
+			(
+				document_id,
+				original_file_name,
+				stored_file_path,
+				file_size,
+				security_level,
+				creator_name,
+				create_date,
+				delete_status
+			)
+			VALUES
+			(
+				#{documentId},
+				#{originalFileName},
+				#{storedFiledPath},
+				#{fileSize},
+				#{securityLevel},
+				#{creatorName},
+				NOW(),
+				#{deleteStatus}
+			)
+		]]>
+    </insert>
+    <select id="selectAllDocuments" resultType="java.util.HashMap" resultMap="documentMapping">
+        <![CDATA[
+                SELECT
+                    document_id,
+                    original_file_name,
+                    stored_file_path,
+                    read_cnt,
+                    creator_name,
+                    upload_option,
+                    file_size,
+                    security_level,
+                    DATE_FORMAT(create_date, '%Y.%m.%d %H:%i:%s') AS create_date,
+                    updator_name,
+                    DATE_FORMAT(update_date, '%Y.%m.%d %H:%i:%s') AS update_date,
+                    delete_status,
+                    seq
+                FROM
+                    document
+                ORDER BY create_date DESC
+		]]>
+    </select>
+
+    <select id="Monitoring_selectList" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="documentMapping">
+     <![CDATA[
+                SELECT
+                    document_id,
+                    original_file_name,
+                    stored_file_path,
+                    read_cnt,
+                    creator_name,
+                    upload_option,
+                    file_size,
+                    security_level,
+                    DATE_FORMAT(create_date, '%Y.%m.%d %H:%i:%s') AS create_date,
+                    updator_name,
+                    DATE_FORMAT(update_date, '%Y.%m.%d %H:%i:%s') AS update_date,
+                    delete_status,
+                    seq
+                FROM
+                    document
+                ORDER BY create_date DESC
+		]]>
+    </select>
+</mapper>

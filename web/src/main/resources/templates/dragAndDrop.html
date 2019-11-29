@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   
+   <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+   <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+</head>
+
+<body>
+
+      <p>
+      This is the most minimal example of Dropzone. The upload in this example
+      doesn't work, because there is no actual server to handle the file upload.
+      </p>
+      
+      <!-- Change /upload-target to your upload address -->
+      <form action="/upload-handling-script"
+      class="dropzone"
+      id="my-dropzone"></form>
+
+
+<script>
+Dropzone.options.dropzoneElement = {
+  maxFilesize: 500,
+  autoProcessQueue: false,
+  init: function() {
+                    
+    var submitButton = document.querySelector("#btnUpload")
+    myDropzone = this;
+    
+    submitButton.addEventListener("click", function() {
+      
+      /* Check if file is selected for upload */
+      if (myDropzone.getUploadingFiles().length === 0 && myDropzone.getQueuedFiles().length === 0) {      
+        alert('No file selected for upload');  
+        return false;
+      }
+      else {
+        /* Remove event listener and start processing */ 
+        myDropzone.removeEventListeners();
+        myDropzone.processQueue(); 
+        
+      }
+    });
+    
+    
+    /* On Success, do whatever you want */
+    this.on("success", function(file, responseText) {      
+      alert('Success');
+    });
+  }   
+};
+</script>
+</body>
+
+</html>
