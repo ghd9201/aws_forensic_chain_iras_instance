@@ -19,11 +19,7 @@ public class EvidenceServiceImpl implements EvidenceService {
         return evidenceMapper.selectAllEvidences();
     }
 
-    public int getEvidenceNo(String caseId) throws Exception{
-        return evidenceMapper.getEvidenceNo(caseId);
-    }
-
-    public Evidence selectEvidence(String caseId, int evidenceNo) throws Exception{
-        return evidenceMapper.selectEvidence(caseId, evidenceNo);
+    public Evidence selectEvidence(String evidenceId) throws Exception{
+        return evidenceMapper.selectEvidence(evidenceId);
     }
 }

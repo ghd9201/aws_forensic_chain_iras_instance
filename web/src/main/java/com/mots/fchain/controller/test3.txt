@@ -1,0 +1,28 @@
+@PostMapping(value = "/mypage/uploadEvidence.do")
+    @ResponseBody
+    public void UploadEvidence(@RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
+        System.out.println("############### FileUpload - START ##########");
+
+        /* 업로드 폴더 날짜명 생성 - 날짜 데이터 생성 */
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
+        ZonedDateTime current = ZonedDateTime.now();
+        String path = "upload/"+current.format(format);
+
+        if (file.isEmpty()) {
+            request.setAttribute("message",
+                    "Please select a file to upload");
+        }
+
+        try {
+            byte[] bytes = file.getBytes();
+            Path uploadpath = Paths.get(path+"/"+ file.getOriginalFilename());
+            Files.write(uploadpath, bytes);
+
+            request.setAttribute("message","You have successfully uploaded '"+ file.getOriginalFilename() + "'");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("############### FileUpload - End ##########");
+    }

@@ -11,7 +11,6 @@ public interface EvidenceService {
 
     ArrayList<HashMap> selectAllEvidences() throws Exception;
 
-    int getEvidenceNo(String caseId) throws Exception;
+    Evidence selectEvidence(String evidenceId) throws Exception;
 
-    Evidence selectEvidence(String caseId, int evidenceNo) throws Exception;
 }

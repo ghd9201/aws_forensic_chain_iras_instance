@@ -1,0 +1,81 @@
+String returnValueJSON = "";
+
+
+        String[] fileNameArray;
+        int fileNameNo = 0;
+
+        /* 행위자 정보 */
+        User user = (User)request.getSession().getAttribute("user");
+
+        /* 증거 이벤트 객체 */
+        Evidence evidence;
+
+        /* 사건 번호 */
+        String caseId = null;
+
+        /* 증거 이벤트 행위 */
+        String eventType = null;
+
+        /* 증거 이벤트 행위자 */
+        String userId = null;
+
+        /* 이벤트 행위자에 대한 설명 */
+        String description = null;
+
+        /* 증거물 해시값 */
+        String fileHash = null;
+
+        /* 증거물 파일 이름 */
+        String fileName = null;
+
+        /* 업로드 폴더 날짜명 생성 - 날짜 데이터 생성 */
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
+        ZonedDateTime current = ZonedDateTime.now();
+        String path = "upload/"+current.format(format);
+        File file = new File(path);
+        if(file.exists() == false){
+            file.mkdirs();
+        }
+
+        /* 사건 번호가 이미 있는 경우와 없는 경우 구분 */
+        if(caseId == null){
+            /* 사건 번호 생성 - 사건 부호는 '형제'로 고정 */
+            caseId = current.format(format)+"-형제-"+ caseService.getCaseCnt();
+        }
+
+        Iterator<String> itr = request.getFileNames();
+        if(itr.hasNext()) {
+            MultipartFile mpf = request.getFile(itr.next());
+            System.out.println(mpf.getOriginalFilename() +" uploaded!");
+            try { //just temporary save file info into ufile
+                System.out.println("file length : " + mpf.getBytes().length);
+
+                fileName = mpf.getOriginalFilename();
+
+                System.out.println("file name : " + fileName);
+
+                File uploadedFile = new File(path+"/"+fileName);
+
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+
+
+                fileHash = sha(path+"/"+fileName);
+
+                /* 증거 데이터 생성 */
+                evidence = fileUtils.parseFileInfo(mpf, caseId, user, description, path+"/"+fileName, fileHash);
+
+                /* 테스트 출력을 위한 문장 */
+                returnValueJSON += "{ \"fileName\" : \"" + fileName + "\" }";
+                /*
+                JSONObject blockData = createBlockdata(fileHash, evidence, eventType, userId, description);
+
+                sendBlockchainData(blockData);
+                */
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /* 테스트 출력을 위한 문장 */
+        response.getWriter().print(returnValueJSON);

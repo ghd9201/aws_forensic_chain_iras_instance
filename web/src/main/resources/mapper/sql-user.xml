@@ -8,7 +8,7 @@
                     userId,
                     password,
                     name,
-                    DATE_FORMAT(signupDate, '%Y.%m.%d %H:%i:%s') AS joinDate,
+                    DATE_FORMAT(joinDate, '%Y.%m.%d %H:%i:%s') AS joinDate,
                     org
                 FROM
                     user
@@ -43,7 +43,7 @@
 				userId,
                 password,
                 name,
-                DATE_FORMAT(signupDate, '%Y.%m.%d %H:%i:%s') AS joinDate,
+                DATE_FORMAT(joinDate, '%Y.%m.%d %H:%i:%s') AS joinDate,
                 org
 			FROM
 				user

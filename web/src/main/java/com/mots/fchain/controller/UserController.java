@@ -52,7 +52,7 @@ public class UserController {
 
     @PostMapping(value = "/index/login.do")
     public ModelAndView loginUser(@RequestParam String userId, @RequestParam String password, HttpServletResponse resposne, HttpServletRequest req) throws Exception{
-        ModelAndView mv = new ModelAndView("/index");
+        ModelAndView mv = new ModelAndView("/mypage");
 
         System.out.println("userId"+userId);
         System.out.println("password"+userId);
@@ -64,11 +64,13 @@ public class UserController {
 
         mv.addObject("user", user);
 
+
+
         return mv;
     }
 
     @GetMapping(value = "/mypage")
-    public ModelAndView mainPage(HttpServletRequest req) throws Exception{
+    public ModelAndView mainPage(HttpServletRequest req, HttpServletResponse response) throws Exception{
         ModelAndView mv = new ModelAndView("/fchain/mypage");
 
 
@@ -79,6 +81,7 @@ public class UserController {
 
         /* 로그인 완료 이벤트 처리 */
         mv.addObject("user",user);
+
         return mv;
     }
 
@@ -98,7 +101,7 @@ public class UserController {
     }
 
     /* 문서 조회 */
-    @RequestMapping(value = "mypage/selectAllDocuments")
+    @RequestMapping(value = "mypage/selectAllEvidencess")
     protected void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // set encoding type to UTF-8

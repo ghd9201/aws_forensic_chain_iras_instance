@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = {MultipartAutoConfiguration.class})
+@SpringBootApplication
 public class FchainApplication {
     public static void main(String[] args) {
         SpringApplication.run(FchainApplication.class, args);

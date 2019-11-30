@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class Evidence {
-    private String objectId;
+    private int objectId;
     private String registerTime;
     private String registerId;
     private String caseId;
-    private int evidenceNo;
+    private String evidenceId;
     private String fileName;
     private long fileSize;
     private String filePath;

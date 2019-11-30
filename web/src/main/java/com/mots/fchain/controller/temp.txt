@@ -1,0 +1,55 @@
+try {
+            /* 업로드된 파일 리스트를 확인 */
+            List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+
+            fileNameArray = new String[items.size()];
+            fileNameNo = 0;
+            for (FileItem item : items) {
+
+                if (item.isFormField()) {
+                    // 이곳은 File 이외의 다른 값을 설정 했을 때만 실행된다.
+                } else {
+                    String fileName = item.getName();	// 업로드된 파일네임 (확장자 포함)
+
+                    File uploadedFile = new File(path+"/"+fileName);
+                    item.write( uploadedFile );
+
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+
+                    fileHash = sha(path+"/"+fileName);
+
+                    /* 증거 데이터 생성 */
+                    evidence = fileUtils.parseFileInfo(item, caseId, user, description, path+"/"+fileName, fileHash);
+
+                    /* 테스트 출력을 위한 문장 */
+                    returnValueJSON += "{ \"fileName\" : \"" + item.getName() + "\" }";
+
+                    /* 파일이 여러 개일 경우를 말하는 것 같음 */
+                    fileNameArray[fileNameNo++] = evidence.getFileName();
+
+                    evidenceService.upload(evidence);
+
+                    JSONObject blockData = createBlockdata(fileHash, evidence, eventType, userId, description);
+
+                    sendBlockchainData(blockData);
+                }
+                response.getWriter().print(gson.toJson(fileNameArray));
+            }
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /* 테스트 출력을 위한 문장 */
+        response.getWriter().print(returnValueJSON);
+
+        System.out.println("############### FileUpload - End ##########");
+        /*
+
+        Member member = (Member)req.getAttribute("member");
+
+        documentService.upload(file, member);
+*/
+        //return mv;

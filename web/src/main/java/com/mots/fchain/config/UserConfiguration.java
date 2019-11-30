@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UserConfiguration {
     @Bean
-    UserService memberService() { return new UserServiceImpl(); }
+    UserService userService() { return new UserServiceImpl(); }
 }

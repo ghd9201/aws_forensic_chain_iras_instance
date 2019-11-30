@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EvidenceConfiguration {
     @Bean
-    EvidenceService documentService(){
+    EvidenceService evidenceService(){
         return new EvidenceServiceImpl();
     }
 }

@@ -6,8 +6,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
    <meta name="description" content="Bootstrap Admin App">
    <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
-   <link rel="icon" type="image/x-icon" href="/img/small_logo.png">
-   <title>CAU-IRAS</title><!-- =============== VENDOR STYLES ===============-->
+   <link rel="icon" type="image/x-icon" href="/img/top_logo.png">
+   <title>Forensic-Chain</title><!-- =============== VENDOR STYLES ===============-->
    <!-- FONT AWESOME-->
    <link rel="stylesheet" href="/vendor/@fortawesome/fontawesome-free/css/brands.css">
    <link rel="stylesheet" href="/vendor/@fortawesome/fontawesome-free/css/regular.css">
@@ -55,15 +55,9 @@
          <!-- START Top Navbar-->
          <nav class="navbar topnavbar">
             <!-- START navbar header-->
-            <div class="navbar-header"><a class="navbar-brand" href="/mypage">
-                  <div class="brand-logo"><img class="img-fluid" src="/img/CAU-IRAS.png" alt="App Logo"></div>
-                  <div class="brand-logo-collapsed"><img class="img-fluid" src="/img/small_logo.png" alt="App Logo" style="width : 45px;"></div>
+            <div class="navbar-header"><a class="navbar-brand" href="#">
+                  <div class="brand-logo"><img class="img-fluid" src="/img/fchain-logo.png" alt="App Logo"></div>
                </a></div><!-- END navbar header-->
-            <!-- START Left navbar-->
-            <ul class="navbar-nav mr-auto flex-row">
-               <li class="nav-item">
-                  <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed"><em class="fas fa-bars"></em></a><!-- Button to show/hide the sidebar on mobile. Visible on mobile only.--><a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true"><em class="fas fa-bars"></em></a></li><!-- START User avatar toggle-->
-            </ul><!-- END Left navbar-->
          </nav><!-- END Top Navbar-->
       </header><!-- sidebar-->
       <aside class="aside-container">
@@ -82,40 +76,24 @@
                                  <div class="circle bg-success circle-lg"></div>
                               </div>
                            </div><!-- Name and Job-->
-                           <div class="user-block-info"><span class="user-block-name" ><p id ="helloMsg" th:text="mottt"></p> </span><span class="user-block-role">HR Team, General Manager</span></div>
                         </div>
                      </div>
                   </li><!-- END user info-->
                   <!-- Iterates over all sidebar items-->
                   <li class="nav-heading "><span>Main</span></li>
                   <li class="active">
-                     <a href="/mypage">
+                     <a href="#">
                         <!-- <div class="float-right badge badge-success"></div> -->
                         <em class="icon-doc"></em><span >My Page</span>
                      </a>
                   </li>
-
-                  <li class="nav-heading "><span>Blockchain Management</span></li>
-                  <li class=" ">
-                     <a href="monitoring.html">
-                        <!-- <div class="float-right badge badge-success"></div> -->
-                        <em class="icon-magnifier"></em><span>Corporation</span>
-                     </a>
-                  </li>
-                  <li class=" ">
-                     <a href="map.html">
-                        <!-- <div class="float-right badge badge-success"></div> -->
-                        <em class="icon-map"></em><span>Government</span>
-                     </a>
-                  </li>
                   <li class="nav-heading "><span>System Management</span></li>
                   <li class=" ">
-                     <a href="index.html">
+                     <a href="#">
                         <!-- <div class="float-right badge badge-success"></div> -->
                         <em class="icon-notebook"></em><span>Logout</span>
                      </a>
                   </li>
-
                </ul><!-- END sidebar nav-->
             </nav>
          </div><!-- END Sidebar (left)-->
@@ -132,33 +110,32 @@
                   <!-- START card tab-->
                   <div class="card card-transparent" role="tabpanel">
                      <div class="card-header">
-                        <div class="card-title">새로 만들기</div>
+                        <div class="card-title">디지털 증거 이관</div>
                      </div>
-                      <div class="tab-content p-0 bg-white" style="height : 384px">
+                     <div class="tab-content p-0 bg-white" style="height : 384px">
                         <div class="row mt-3">
-                          <div class="col-xl-3" style="padding: 0 0 0 30px;">
-                            <select class="custom-select" multiple style="height : 300px; font-size: 14px;" id="select1" onchange="onchangeSelect1(this.value);">
-                              <option value="인사">인사</option>
-                              <option value="경영/기획">경영/기획</option>
-                              <option value="총무/재무">총무/재무</option>
-                              <option value="영업">영업</option>
-                              <option value="생산/제조">생산/제조</option>
-                              <option value="R&D">R&D</option>
-                            </select>
-                          </div>
-                          <div class="col-xl-3">
-                            <select class="custom-select" multiple style="height : 300px; font-size: 14px;" id="select2" onchange="onchangeSelect2(this.value);">
-                              <option>(대분류 먼저 선택)</option>
-                            </select>
-                          </div>
-                          <div class="col-xl-6" style="padding: 0 30px 0 0;">
-                            <select class="custom-select" multiple style="height : 250px; font-size: 14px;" id="select3">
-                              <option>(대분류 먼저 선택)</option>
-                            </select>
-                            <div class="col-xl-12">
-                              <button class="col-xl-12 btn btn-primary" style="margin : 10px" type="button" onclick="clickDownloadBtn();">Download</button>
-                          </div>
-                          </div>
+                           <div class="card-body">
+                              <fieldset>
+                                 <div class="form-group towards-3-deg">
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-2 col-form-label">증거 번호 : </label>
+                                    <div class="col-md-8"><input class="form-control" type="text" name="moveEvidence" ></div>
+                                 </div>
+                                 <div class="form-group towards-3-deg">
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-2 col-form-label">이관 기관 : </label>
+                                    <div class="col-md-8"><input class="form-control" type="text" name="moveOrg" ></div>
+                                 </div>
+                                 <div class="form-group towards-3-deg">
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-2 col-form-label">설명 : </label>
+                                    <div class="col-md-8"><input class="form-control" type="text" name="moveDescription"></div>
+                                 </div>
+                                 <div class="text-center" style="padding-top: 15px;">
+                                    <button class="btn btn-primary btn-lg" type="button" onclick="move();" ><strong>이전</strong></button>
+                                 </div>
+                              </fieldset>
+                           </div>
                         </div>
                      </div>
                   </div><!-- END card tab-->
@@ -166,357 +143,110 @@
                <div class="col-xl-4">
                   <div class="card card-transparent">
                      <div class="card-header">
-                        <div class="card-title">문서 업로드</div>
+                        <div class="card-title">증거물 등록</div>
                      </div>
                      <div class="content-wrapper" style="border-top: 0; padding-top: 0;">
                         <div class="container container-lg">
-                           <form class="dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap" id="dropzone-area" name = "docuForm" action="/mypage/uploadDocument.do" onsubmit="return mysubmit();" >
-			                  <div id="dropzone-previews"></div>
-			                  <div class="text-right w-100">
-									<button class="btn btn-secondary btn-lg" type="button" data-toggle="modal" data-target="#sendQuestion"><strong>등급산정</strong></button>
-									<button class="btn btn-primary btn-lg" type="submit" onclick="sendData();" ><strong>등록하기</strong></button>
-							  </div>
-			               </form>
-			               <!-- <p><small class="text-muted">This demo does not upload files to any server.</small></p> -->
+                           <form class="dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap" enctype="multipart/form-data" id="dropzone-area" name="docuForm" action="/mypage/uploadEvidence.do" >
+                              <div id="dropzone-previews"></div>
+                              <div class="text-right w-100">
+                                 <button class="btn btn-secondary btn-lg" type="button" data-toggle="modal" data-target="#sendQuestion"><strong>정보입력</strong></button>
+                                 <button class="btn btn-primary btn-lg" type="submit" onclick="window.location.reload()" ><strong>등록하기</strong></button>
+                              </div>
+                           </form>
+                           <!-- <p><small class="text-muted">This demo does not upload files to any server.</small></p> -->
                         </div>
                      </div>
                   </div>
                </div>
             </div><!-- Close : Template Download -->
 
-
-         <!-- Upload / Download Status -->
-            <div class="row">
-
-               <!-- START : Upload Status-->
-               <div class="col-xl-6">
-                  <div class="card card-transparent" role="tabpanel">
-                     <div class="card-header">
-                        <div class="card-title">문서 업로드 기록</div>
-                     </div>
-                     <div class="list-group mb-3">
-                        <div class="list-group-item" href="#">
-                           <table class="wd-wide">
-                              <tbody>
-                                 <tr>
-                                    <td class="wd-xs">
-                                       <div class="px-2"><img class="img-fluid rounded thumb64" src="/img/ppt.png" alt=""></div>
-                                    </td>
-                                    <td style="width: 40%;">
-                                       <div class="px-4">
-                                         <p class="m-0 detailFileName">(Loading...)</p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0">게시일</p><small class="text-muted detailCreatedDate"></small>
-                                       </div>
-                                    </td>
-                                    <td class="wd-xs d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0 text-muted"><em class="icon-people mr-2 fa-lg"></em><span class="detailPeople"></span></p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0 detailSecurityLevel"></p>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="list-group mb-3">
-                        <div class="list-group-item" href="#">
-                           <table class="wd-wide">
-                              <tbody>
-                                 <tr>
-                                    <td class="wd-xs">
-                                       <div class="px-2"><img class="img-fluid rounded thumb64" src="/img/excel.png" alt=""></div>
-                                    </td>
-                                    <td style="width: 40%;">
-                                       <div class="px-4">
-                                         <p class="m-0 detailFileName">(Loading...)</p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0">게시일</p><small class="text-muted detailCreatedDate"></small>
-                                       </div>
-                                    </td>
-                                    <td class="wd-xs d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0 text-muted"><em class="icon-people mr-2 fa-lg"></em><span class="detailPeople"></span></p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0 detailSecurityLevel"></p>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="list-group mb-3">
-                        <div class="list-group-item" href="#">
-                           <table class="wd-wide">
-                              <tbody>
-                                 <tr>
-                                    <td class="wd-xs">
-                                       <div class="px-2"><img class="img-fluid rounded thumb64" src="/img/word.png" alt=""></div>
-                                    </td>
-                                    <td style="width: 40%;">
-                                       <div class="px-4">
-                                         <p class="m-0 detailFileName">(Loading...)</p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0">게시일</p><small class="text-muted detailCreatedDate"></small>
-                                       </div>
-                                    </td>
-                                    <td class="wd-xs d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0 text-muted"><em class="icon-people mr-2 fa-lg"></em><span class="detailPeople"></span></p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0 detailSecurityLevel"></p>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div><!-- END dashboard main content-->
-                     </div><!-- END Multiple List group-->
-                  </div>
-               </div>
-
-
-               <!-- START : Download Status-->
-               <div class="col-xl-6">
-                  <div class="card card-transparent" role="tabpanel">
-                     <div class="card-header">
-                        <div class="card-title">수정중인 문서</div>
-                     </div>
-                     <div class="list-group mb-3">
-                        <div class="list-group-item" href="#">
-                           <table class="wd-wide">
-                              <tbody>
-                                 <tr>
-                                    <td class="wd-xs">
-                                       <div class="px-2"><img class="img-fluid rounded thumb64" src="/img/word.png" alt=""></div>
-                                    </td>
-                                    <td>
-                                       <div class="px-2">
-                                          <p class="m-0 editFileName">송은지_근로계약서</p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0">수정일</p><small class="text-muted editDate">2019-04-24</small>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="list-group mb-3">
-                        <div class="list-group-item" href="#">
-                           <table class="wd-wide">
-                              <tbody>
-                                 <tr>
-                                    <td class="wd-xs">
-                                       <div class="px-2"><img class="img-fluid rounded thumb64" src="/img/ppt.png" alt=""></div>
-                                    </td>
-                                    <td>
-                                       <div class="px-2">
-                                          <p class="m-0 editFileName">박지민_고용추천서</p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0">수정일</p><small class="text-muted editDate">2019-04-24</small>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="list-group mb-3">
-                        <div class="list-group-item" href="#">
-                           <table class="wd-wide">
-                              <tbody>
-                                 <tr>
-                                    <td class="wd-xs">
-                                       <div class="px-2"><img class="img-fluid rounded thumb64" src="/img/excel.png" alt=""></div>
-                                    </td>
-                                    <td>
-                                       <div class="px-2">
-                                          <p class="m-0 editFileName">2019_보안교육</p>
-                                       </div>
-                                    </td>
-                                    <td class="wd-sm d-none d-lg-table-cell">
-                                       <div class="px-2">
-                                          <p class="m-0">수정일</p><small class="text-muted editDate">2019-04-24</small>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div><!-- END dashboard main content-->
-                     </div><!-- END Multiple List group-->
-                  </div>
-               </div>
-            </div>
-
-
             <div class="row">
                <div class="col-xl-12">
                   <!-- START card-->
                   <div class="card">
-                        <div class="card-header">
-                           <div class="card-title">문서 조회</div>
-                        </div>
-                        <div class="card-body">
-                           <table class="table table-striped my-4 w-100" id="datatable1">
-                              <thead>
-                                 <tr>
-                                    <th>번호</th>
-                                    <th>파일명</th>
-                                    <th>작성자</th>
-                                    <th>작성일자</th>
-                                    <th class="sort-numeric">조회수</th>
-                                    <th class="sort-alpha" data-priority="2">문서등급</th>
-                                    <th>다운로드</th>
-                                 </tr>
-                              </thead>
-                           </table>
-                        </div>
-                     </div><!-- END card-->
+                     <div class="card-header">
+                        <div class="card-title">증거물 이력 관리</div>
+                     </div>
+                     <div class="card-body">
+                        <table class="table table-striped my-4 w-100" id="datatable1">
+                           <thead>
+                           <tr>
+                              <th>번호</th>
+                              <th>사건번호</th>
+                              <th>증거명</th>
+                              <th>등록자</th>
+                              <th>등록일</th>
+                              <th>해시값</th>
+                           </tr>
+                           </thead>
+                        </table>
+                     </div>
+                  </div><!-- END card-->
                </div>
             </div><!-- END row-->
          </div>
       </section>
       </section><!-- Page footer-->
       <footer class="footer-container"><span>&copy; 2019 - CAU-IRAS</span></footer>
-   </div>
+   </div>lo
 
 
-   <!-- =============== Modal Popup - 문서 등급 산정 ===============-->
    <div class="modal fade" id="sendQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document" style="width: 950px; max-width: 950px;">
-			<div class="modal-content">
-					<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true" style="font-weight: 100;">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- START card-->
-                  <div class="card card-default">
-                     <div class="card-header" style="font-size: 18px; font-weight: 700;">정보 등급화</div>
-                     <div class="card-body">
-                        <!-- START table-responsive-->
-                        <div class="table-responsive">
-                           <table class="table table-striped table-bordered table-hover">
-                              <thead>
-                                 <tr class="text-center">
-                                    <th colspan="2">정보 등급화 평가항목</th>
-                                    <th>정보 등급화 평가내용</th>
-                                    <th>배점</th>
-                                    <th>평가점수</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td colspan="2">정보 창출 및 유지비용</td>
-                                    <td>해당 정보를 도출하기 위해 투입한 인력, 시간, 자본을 전체적으로 산정하여 평가<br>예) 전체 연구개발 투자비 대비 해당 기술 관련 투자비</td>
-                                    <td>10</td>
-                                    <td>
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-secondary"> <input type="radio" name="radio1" id="option1" value='1' autocomplete="off" onchange="securityLevel();"> 상
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio1" id="option2" value='0.5' autocomplete="off" onchange="securityLevel();"> 중
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio1" id="option3" value='0' autocomplete="off" onchange="securityLevel();"> 하
-											</label>
-										</div>
-									</td>
-                                 </tr>
-                                 <tr>
-                                    <td colspan="2">산출 정보 수준</td>
-                                    <td>산출된 정보의 품질과 수준(정확성, 신규성, 사용용이성 등)을 평가<br>예) 해당 기술분야에서 경쟁업체와의 상대적 기술수준 격차</td>
-                                    <td>15</td>
-                                    <td>
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-secondary"> <input type="radio" name="radio2" id="option1" value='1' autocomplete="off" onchange="securityLevel();"> 상
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio2" id="option2" value='0.5' autocomplete="off" onchange="securityLevel();"> 중
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio2" id="option3" value='0' autocomplete="off" onchange="securityLevel();"> 하
-											</label>
-										</div>
-									</td>
-                                 </tr>
-                                 <tr>
-                                    <td colspan="2">정보 활용도</td>
-                                    <td>해당 정보에 대한 활용빈도와 범위 정도를 평가<br>예) 해당 기술이 적용된 제품 수</td>
-                                    <td>10</td>
-                                    <td>
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-secondary"> <input type="radio" name="radio3" id="option1" value='1' autocomplete="off" onchange="securityLevel();"> 상
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio3" id="option2" value='0.5' autocomplete="off" onchange="securityLevel();"> 중
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio3" id="option3" value='0' autocomplete="off" onchange="securityLevel();"> 하
-											</label>
-										</div>
-									</td>
-                                 </tr>
-                                 <tr>
-                                    <td rowspan="2">정보활용 파급효과</td>
-                                    <td>내부 활용효과</td>
-                                    <td>해당 정보가 기업의 가치(수익)창출에 기여한 정도를 평가</td>
-                                    <td>35</td>
-                                    <td>
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-secondary"> <input type="radio" name="radio4" id="option1" value='1' autocomplete="off" onchange="securityLevel();"> 상
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio4" id="option2" value='0.5' autocomplete="off" onchange="securityLevel();"> 중
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio4" id="option3" value='0' autocomplete="off" onchange="securityLevel();"> 하
-											</label>
-										</div>
-									</td>
-                                 </tr>
-                                 <tr>
-                                    <td>외부 활용효과</td>
-                                    <td>타사로의 정보유출로 인해 예상되는 영업소실 가능성을 평가<br>예)기술 유출로 기업에 발생하는 감소 매출액</td>
-                                    <td>30</td>
-                                    <td>
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-secondary"> <input type="radio" name="radio5" id="option1" value='1' autocomplete="off" onchange="securityLevel();"> 상
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio5" id="option2" value='0.5' autocomplete="off" onchange="securityLevel();"> 중
-											</label> <label class="btn btn-secondary"> <input type="radio" name="radio5" id="option3" value='0' autocomplete="off" onchange="securityLevel();"> 하
-											</label>
-										</div>
-									</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-
-			                <div class="progress mb-3" style="margin: 20px;">
-			                   <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="radioProgressbar" aria-valuenow="40" aria-valuemin="20" aria-valuemax="120" style="width: 40%"></div>
-			                </div>
-                           <div class="text-center" style="padding-top: 15px;">
-                           	<button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#sendQuestion" onclick="closePopup();" ><strong>등급산정</strong></button>
-                           </div>
-                        </div><!-- END table-responsive-->
-                     </div>
-                  </div><!-- END card-->
-				</div>
-			</div>
-		</div>
+      <div class="modal-dialog" role="document" style="width: 950px; max-width: 950px;">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="font-weight: 100;">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <!-- START card-->
+               <div class="card card-default">
+                  <div class="card-header" style="font-size: 18px; font-weight: 700;">증거물 정보 입력</div>
+                  <div class="card-body">
+                     <!-- START table-responsive-->
+                     <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                           <thead>
+                           <tr class="text-center">
+                              <th colspan="1">항목</th>
+                              <th>정보 입력</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <tr>
+                              <td colspan="1">사건 번호 :</td>
+                              <td><input class="form-control" type="text" id="caseId"></td>
+                           </tr>
+                           <tr>
+                              <td colspan="1">증거 번호 :</td>
+                              <td><input class="form-control" type="text" name="evidenceId"></td>
+                           </tr>
+                           <tr>
+                              <td colspan="1">구분 :</td>
+                              <td><input class="form-control" type="text" id="eventType"></td>
+                           </tr>
+                           <tr>
+                              <td colspan="1">설명 :</td>
+                              <td><input class="form-control" type="text" name="description"></td>
+                           </tr>
+                           </tbody>
+                        </table>
+                        <div class="text-center" style="padding-top: 15px;">
+                           <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#sendQuestion" onclick="closePopup();" ><strong>확인</strong></button>
+                        </div>
+                     </div><!-- END table-responsive-->
+                  </div>
+               </div><!-- END card-->
+            </div>
+         </div>
+      </div>
    </div>
+
+
+
+
 
    <!-- File DOwnload -->
    <iframe id="downloadIframe" style="display:none;"></iframe>
@@ -580,122 +310,48 @@
          }
       }
 
-      // 문서 보안레벨 설정 및 Progress Bar 변경
-      var docLevel = 0;
-      function securityLevel() {
-         var r1 = $("input[name=radio1]:checked").val();
-         var r2 = $("input[name=radio2]:checked").val();
-         var r3 = $("input[name=radio3]:checked").val();
-         var r4 = $("input[name=radio4]:checked").val();
-         var r5 = $("input[name=radio5]:checked").val();
-         rArr[0] = $("input[name=radio1]:checked").val();
-         rArr[1] = $("input[name=radio2]:checked").val();
-         rArr[2] = $("input[name=radio3]:checked").val();
-         rArr[3] = $("input[name=radio4]:checked").val();
-         rArr[4] = $("input[name=radio5]:checked").val();
+      function closePopup() {
+         var caseId = $('#caseId').val();
+         var evidenceId = $('input[name=evidenceId]').val();
+         var eventType = $('#eventType').val();
+         var description = $("input[name=description]").val();
+        $.ajax({
+            method: "POST",
+            type: "POST",
+            dataType : "json",
+            contentType: 'application/json',
+            url: "/mypage/evidenceInfo.do",
+            data: JSON.stringify({
+               "caseId" : caseId,
+               "evidenceId" : evidenceId,
+               "eventType" : eventType,
+               "description" : description}),
+            success: function(data){
 
-         var rSum = 0;
-         var rCnt = 0;
-
-         if( r1 ) {
-            rSum += r1 * 10;
-            rCnt+=1;
-         }
-         if( r2 ) {
-            rSum += r2 * 15;
-            rCnt+=1;
-         }
-         if( r3 ) {
-            rSum += r3 * 10;
-            rCnt+=1;
-         }
-         if( r4 ) {
-            rSum += r4 * 35;
-            rCnt+=1;
-         }
-         if( r5 ) {
-            rSum += r5 * 30;
-            rCnt+=1;
-         }
-
-         if( rSum < 50 ) {
-            docLevel = 3;
-         } else if( rSum < 70 ) {
-            docLevel = 2;
-         } else if( rSum >= 70 ) {
-            docLevel = 1;
-         }
-
-         $("#radioProgressbar")
-                 .css("width", rCnt*20 + "%")
-                 .attr("aria-valuenow", rCnt*20)
+            },
+            beforeSend: function(){
+            },
+            error:function(e){
+            }
+         });
       }
 
-      function closePopup() {
-         if( docLevel == 1 ) {
-            swal("주의하세요!", "보안 1등급 문서입니다.", "warning");
-         } else if( docLevel == 2 ) {
-            swal("보안등급", "2등급 문서입니다.", "success");
-         } else if( docLevel == 3 ) {
-            swal("보안등급", "3등급 문서입니다.", "success");
-         }
+      function move() {
+         var moveEvidence = $('input[name=moveEvidence]').val();
+         var moveOrg = $('input[name=moveOrg]').val();
+         var moveDescription = $('input[name=moveDescription]').val();
          $.ajax({
             method: "POST",
             type: "POST",
             dataType : "json",
             contentType: 'application/json',
-            url: "/mypage/sendScore.do",
+            url: "/mypage/move.do",
             data: JSON.stringify({
-               "item1" : rArr[0],
-               "item2" : rArr[1],
-               "item3" : rArr[2],
-               "item4" : rArr[3],
-               "item5" : rArr[4]}),
-            success: function(){
-
-            },
-            beforeSend: function(){
-            },
-            error:function(e){
-            }
-         });
-      }
-
-      function sendData() {
-         //평가표 평가점수 원복
-         $('.btn-group').find('label').removeClass('active')
-                 .end().find('[type="radio"]').prop('checked', false);
-         //평가표 그래프 원복
-         $("#radioProgressbar")
-                 .css("width", 10 + "%")
-                 .attr("aria-valuenow", 10)
-                 .text("");
-      }
-
-
-      function ajaxMyPage(resultFileArray) {
-         var params = {
-            uname: localStorage.uname,
-            fileName: resultFileArray[0],
-            securityLevel: docLevel+"등급",
-            writer: localStorage.uname,
-            companyName: getRandom(companyList),
-            part: getRandom(partList)
-         };
-         $.ajax({
-            method: "POST",
-            url: "/mypage/uploadDocument.do",
-            data: params,
+               "moveEvidence" : moveEvidence,
+               "moveOrg" : moveOrg,
+               "moveDescription" : moveDescription}),
             success: function(data){
-               console.log(data);
-               //평가표 평가점수 원복
-               $('.btn-group').find('label').removeClass('active')
-                       .end().find('[type="radio"]').prop('checked', false);
-               //평가표 그래프 원복
-               $("#radioProgressbar")
-                       .css("width", 10 + "%")
-                       .attr("aria-valuenow", 10)
-                       .text("");
+
             },
             beforeSend: function(){
             },
@@ -703,155 +359,12 @@
             }
          });
       }
-
-      function getRandom(array) {
-         return array[Math.round(Math.random() * (array.length-1))];
-      }
-
-      function clickDownloadBtn() {
-         document.getElementById("downloadIframe").src = "template_file.doc";
-      }
-
-      // 작성자 명단
-      var writerList = ['김아영','김수지','신재은','이기상','오민재','박보현','최지은','나은아','정재현','윤민철'];		// TODO 나머지 작성
-      var companyList = ['소프트캠프','LG CNS','KT','놀웍스','한국에너지공단','법무법인 태평양','법무법인 민후','코인플러스','한국블록체인협회','SHIELDEX'];	// TODO 나머지 작성
-      var partList = ['인사팀','총무팀','경영팀','지원팀','법무팀','영업팀','회계팀','감사팀','마케팅팀'];			// TODO 나머지 작성
-      //var securityLevel = ['1등급','2등급','3등급'];			// TODO 나머지 작성
-      var fileList = ['2019_연간채용계획','2018_하반기_임원업적평가','2019_단체협약정보','2019_1분기_고용추천서','2018_4분기_채용희망자 개인정보','2018_보험사고 관련 보고 개인정보','2019_산재보상관리','2018_12_인건비 현황','2019_경영(전략) 목표 추진 계획','2018_비밀문서 복사,소각 대장'];			// TODO 나머지 작성
-
-      function datatable1DrawCallback() {
-         // onclick event
-         $('#datatable1 tbody').on('click', 'tr', function () {
-            var data = datatable1.row( this ).data();
-            if( data.securityLevel == "1등급" ){
-               swal("허가되지 않음", "보안 1등급 문서는 다운로드 할 수 없습니다.", "warning");
-            }
-         } );
-      }
-
-      function clickDownload(fileName) {
-         if( fileName.substring(2,3) == '_' ) {
-            // file download
-            document.getElementById("downloadIframe").src = "/downloadTemplate/" + fileName;
-         } else {
-            document.getElementById("downloadIframe").src = "/downloadTemplate/template_file.doc";
-         }
-         setEditHistory(fileName);
-      }
-
-      function setEditHistory(fileName) {
-         if(localStorage.doc1 == undefined) {
-            localStorage.doc1 = "(Not Defined)";
-         }
-         if(localStorage.doc2 == undefined) {
-            localStorage.doc2 = "(Not Defined)";
-         }
-         if(localStorage.doc3 == undefined) {
-            localStorage.doc3 = "(Not Defined)";
-         }
-
-         if(fileName != null) {
-            localStorage.doc3 = localStorage.doc2 ;
-            localStorage.doc2 = localStorage.doc1;
-            localStorage.doc1 = fileName;
-         }
-
-         for( var i=0; i<3; i++ ) {
-            document.querySelectorAll(".editFileName")[i].innerText = localStorage["doc" + (i+1)];
-            document.querySelectorAll(".editDate")[i].innerText = new Date().format("yyyy.MM.dd");
-         }
-      }
-
-      setEditHistory();
-
-
-      // Filter
-      datatable1 = $('#datatable1').DataTable({
-         'paging': true, // Table pagination
-         'ordering': true, // Column ordering
-         'info': true, // Bottom left status text
-         ajax : {
-            url: "/mypage/selectAllDocuments",
-            type: "POST",
-            dataSrc: '',
-         },
-         drawCallback: datatable1DrawCallback,
-         responsive: true,
-         // Text translation options
-         // Note the required keywords between underscores (e.g _MENU_)
-         oLanguage: {
-            sSearch: 'Search all columns:',
-            sLengthMenu: '_MENU_ records per page',
-            info: 'Showing page _PAGE_ of _PAGES_',
-            zeroRecords: 'Nothing found - sorry',
-            infoEmpty: 'No records available',
-            infoFiltered: '(filtered from _MAX_ total records)',
-            oPaginate: {
-               sNext: '<em class="fa fa-caret-right"></em>',
-               sPrevious: '<em class="fa fa-caret-left"></em>'
-            }
-         },
-         // Datatable Buttons setup
-         dom: 'Bfrtip',
-         "aaSorting": [ [ 3, "desc" ] ],
-         buttons: [
-            { extend: 'copy', className: 'btn-info' },
-            { extend: 'csv', className: 'btn-info' },
-            { extend: 'excel', className: 'btn-info', title: 'XLS-File' },
-            { extend: 'pdf', className: 'btn-info', title: $('title').text() },
-            { extend: 'print', className: 'btn-info' }
-         ],
-         keys: {
-            columns: ':not(:first-child)',
-            keys: [ 0 ]
-         },
-         columns : [
-            {data: 'seq', "defaultContent": ""},
-            {data: 'originalFileName', "defaultContent": ""},
-            {data: 'creatorName', "defaultContent": ""},
-            {data: "createDate",
-               "render": function (data) {
-                  return new Date(data).format("yyyy.MM.dd HH:mm");
-               }
-            },
-            {data: 'seq',
-               "render": function (data) {
-                  return Math.round(Math.random() * (17));
-               }
-            },
-            {data: 'securityLevel', "defaultContent": ""},
-            {data: "originalFileName",
-               "render": function (data) {
-                  var html = null;
-                  html = '<span class="text-muted mr-1" onclick="clickDownload(\''+data+'\')"><em class="fa fa-download fa-fw"></em></span>';
-                  return html;
-               }
-            }
-         ],
-         createdRow: function( row, data, dataIndex){
-            if( data.securityLevel ==  '1등급'){
-               $(row).addClass('grayColor');
-               $(row).find("td em")[0].style.opacity = 0.4;
-               $(row).find("td > span")[0].setAttribute("onclick", "");
-            }
-
-            if( dataIndex == 0 ) {
-               // 첫 줄은 조회수가 항상 0이다.
-               $(row).find("td")[4].innerText = 0;
-            }
-
-            if( dataIndex <= 2 ) {
-               // 마지막 3개를 Update
-               document.querySelectorAll(".detailFileName")[dataIndex].innerText = data.fileName;
-               document.querySelectorAll(".detailCreatedDate")[dataIndex].innerText = data.createdDate;
-               document.querySelectorAll(".detailPeople")[dataIndex].innerText = Math.round(Math.random() * (17));
-               document.querySelectorAll(".detailSecurityLevel")[dataIndex].innerText = data.securityLevel;
-            }
-         }
-      });
 
 
    </script>
+
+
+
 </body>
 
 </html>

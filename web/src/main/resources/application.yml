@@ -1,11 +1,8 @@
 spring:
-  mvc:
-    view:
-      prefix: /templates/
-      suffix: .html
   datasource:
+    hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/fchaindb?serverTimezone=UTC&characterEncoding=UTF-8
+      jdbc-url: jdbc:mysql://localhost:3306/fchaindb?serverTimezone=UTC&characterEncoding=UTF-8
       username: root
-      password: labs123!@#
+      password: mots5538
       connection-test-query: SELECT 1

@@ -1,0 +1,130 @@
+<div class="user-block-info"><span class="user-block-name" ><p id ="helloMsg" th:text="홍길동"></p> </span><span class="user-block-role">경기북부지방경찰청 사이버수사과</span></div>
+
+
+
+
+// Filter
+      datatable1 = $('#datatable1').DataTable({
+         'paging': true, // Table pagination
+         'ordering': true, // Column ordering
+         'info': true, // Bottom left status text
+         ajax : {
+            url: "/mypage/selectAllDocuments",
+            type: "POST",
+            dataSrc: '',
+         },
+         drawCallback: datatable1DrawCallback,
+         responsive: true,
+         // Text translation options
+         // Note the required keywords between underscores (e.g _MENU_)
+         oLanguage: {
+            sSearch: 'Search all columns:',
+            sLengthMenu: '_MENU_ records per page',
+            info: 'Showing page _PAGE_ of _PAGES_',
+            zeroRecords: 'Nothing found - sorry',
+            infoEmpty: 'No records available',
+            infoFiltered: '(filtered from _MAX_ total records)',
+            oPaginate: {
+               sNext: '<em class="fa fa-caret-right"></em>',
+               sPrevious: '<em class="fa fa-caret-left"></em>'
+            }
+         },
+         // Datatable Buttons setup
+         dom: 'Bfrtip',
+         "aaSorting": [ [ 3, "desc" ] ],
+         buttons: [
+            { extend: 'copy', className: 'btn-info' },
+            { extend: 'csv', className: 'btn-info' },
+            { extend: 'excel', className: 'btn-info', title: 'XLS-File' },
+            { extend: 'pdf', className: 'btn-info', title: $('title').text() },
+            { extend: 'print', className: 'btn-info' }
+         ],
+         keys: {
+            columns: ':not(:first-child)',
+            keys: [ 0 ]
+         },
+         columns : [
+            {data: 'seq', "defaultContent": ""},
+            {data: 'originalFileName', "defaultContent": ""},
+            {data: 'creatorName', "defaultContent": ""},
+            {data: "createDate",
+               "render": function (data) {
+                  return new Date(data).format("yyyy.MM.dd HH:mm");
+               }
+            },
+            {data: 'seq',
+               "render": function (data) {
+                  return Math.round(Math.random() * (17));
+               }
+            },
+            {data: 'securityLevel', "defaultContent": ""},
+            {data: "originalFileName",
+               "render": function (data) {
+                  var html = null;
+                  html = '<span class="text-muted mr-1" onclick="clickDownload(\''+data+'\')"><em class="fa fa-download fa-fw"></em></span>';
+                  return html;
+               }
+            }
+         ]
+      });
+
+
+
+      function move() {
+               var moveId = $('input[name=moveId]').val();
+               var moveEvidence = $('input[name=moveEvidence]').val();
+               var moveOrg = $('input[name=moveOrg]').val();
+               var moveDescription = $('input[name=moveDescription]').val();
+
+               $.ajax({
+                  method: "POST",
+                  type: "POST",
+                  dataType : "json",
+                  contentType: 'application/json',
+                  url: "/mypage/move.do",
+                  data: JSON.stringify({
+                     "moveId" : moveId,
+                     "moveEvidence" : moveEvidence,
+                     "moveOrg" : moveOrg,
+                     "moveDescription" : moveDescription}),
+                  success: function(data){
+
+                  },
+                  beforeSend: function(){
+                  },
+                  error:function(e){
+                  }
+               });
+            }
+
+
+
+
+
+
+
+ <fieldset>
+                                 <div class="form-group">
+                                    <label class="col-md-1 col-form-label flex-row"></label>
+                                    <label class="col-md-2 col-form-label">사건 번호 : </label>
+                                    <div class="col-md-8 flex-row"></label><input class="form-control" type="text" name="moveId" ></div>
+                                 </div>
+                                 <div class="form-group towards-3-deg">
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-2 col-form-label">증거 번호 : </label>
+                                    <div class="col-md-8"><input class="form-control" type="text" name="required" name="moveEvidence" ></div>
+                                 </div>
+                                 <div class="form-group towards-3-deg">
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-2 col-form-label">이관 기관 : </label>
+                                    <div class="col-md-8"><input class="form-control" type="text" name="required" name="moveOrg" ></div>
+                                 </div>
+                                 <div class="form-group towards-3-deg">
+                                    <label class="col-md-1 col-form-label"></label>
+                                    <label class="col-md-2 col-form-label">설명 : </label>
+                                    <div class="col-md-8"><input class="form-control" type="text" name="required" name="moveDescription"></div>
+                                 </div>
+                                 <div class="text-center" style="padding-top: 15px;">
+                                    <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#sendQuestion" onclick="move();" ><strong>이전</strong></button>
+                                 </div>
+                              </fieldset>
