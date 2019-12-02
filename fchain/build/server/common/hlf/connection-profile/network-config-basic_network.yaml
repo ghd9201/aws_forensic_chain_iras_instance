@@ -52,7 +52,7 @@ channels:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
-        endorsingPeer: true
+        endorsingPeer: true 
 
         # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
         # installed. The app can also use this property to decide which peers to send the
@@ -77,21 +77,21 @@ channels:
         discover: false
 
       p0.org2.fchain.com:
-        endorsingPeer: false
+        endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
-        discover: true        
+        discover: true      
 
       p1.org2.fchain.com:
         endorsingPeer: false
         chaincodeQuery: true
         ledgerQuery: true
-        eventSource: true
-        discover: true
+        eventSource: false 
+        discover: false
 
       p0.org3.fchain.com:
-        endorsingPeer: false
+        endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
@@ -101,8 +101,8 @@ channels:
         endorsingPeer: false
         chaincodeQuery: true
         ledgerQuery: true
-        eventSource: true
-        discover: true
+        eventSource: false
+        discover: false
 
 
     # [Optional]. what chaincodes are expected to exist on this channel? The application can use

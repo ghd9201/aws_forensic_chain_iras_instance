@@ -845,7 +845,7 @@ class FchainService {
     args.push(req.body.description);
     args.push(req.body.evidenceHash);
 
-    peers.push('p0.org1.fchain.com');
+    peers.push('p0.org2.fchain.com');
     /*peers.push('p1.org1.fchain.com');
     peers.push('p0.org2.fchain.com');
     peers.push('p1.org2.fchain.com');
@@ -854,8 +854,13 @@ class FchainService {
 
     _logger2.default.debug(`invoke args:${args}`);
 
+    Promise.resolve(transaction.invokeChainCode('p0.org1.fchain.com', 'fchannel', 'fchain', 'addEvidenceRecord', args, 'admin', 'Org1'));
     _logger2.default.debug(`invoke peers:${peers}`);
-    return Promise.resolve(transaction.invokeChainCode(peers, 'fchannel', 'fchain', 'addEvidenceRecord', args, 'admin', 'Org1'));
+
+    Promise.resolve(transaction.invokeChainCode('p0.org2.fchain.com', 'fchannel', 'fchain', 'addEvidenceRecord', args, 'admin', 'Org2'));
+    _logger2.default.debug(`invoke peers:${peers}`);
+
+    return Promise.resolve(transaction.invokeChainCode('p0.org3.fchain.com', 'fchannel', 'fchain', 'addEvidenceRecord', args, 'admin', 'Org3'));
   }
 }
 

@@ -40,7 +40,7 @@ class FchainService {
     args.push(req.body.evidenceHash);
 
 
-    peers.push('p0.org1.fchain.com');
+    peers.push('p0.org2.fchain.com');
     /*peers.push('p1.org1.fchain.com');
     peers.push('p0.org2.fchain.com');
     peers.push('p1.org2.fchain.com');
@@ -50,9 +50,16 @@ class FchainService {
 
     l.debug(`invoke args:${args}`);
 
-    l.debug(`invoke peers:${peers}`);
-    return Promise.resolve(transaction.invokeChainCode(peers, 'fchannel', 'fchain',
+    Promise.resolve(transaction.invokeChainCode('p0.org1.fchain.com', 'fchannel', 'fchain',
       'addEvidenceRecord', args, 'admin', 'Org1'));
+    l.debug(`invoke peers:${peers}`);
+
+    Promise.resolve(transaction.invokeChainCode('p0.org2.fchain.com', 'fchannel', 'fchain',
+      'addEvidenceRecord', args, 'admin', 'Org2'));
+    l.debug(`invoke peers:${peers}`);
+
+    return Promise.resolve(transaction.invokeChainCode('p0.org3.fchain.com', 'fchannel', 'fchain',
+      'addEvidenceRecord', args, 'admin', 'Org3'));
   }
 }
 

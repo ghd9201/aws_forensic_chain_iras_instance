@@ -95,9 +95,9 @@ services:
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org1MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org1.fchain.com:7051
+      #    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org1.fchain.com:7051
     - CORE_PEER_ADDRESS=p0.org1.fchain.com:7051
-    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org1.fchain.com:7051
+      #    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org1.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
@@ -140,9 +140,9 @@ services:
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org1MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org1.fchain.com:7051
+      #    - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org1.fchain.com:7051
     - CORE_PEER_ADDRESS=p1.org1.fchain.com:7051
-    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org1.fchain.com:7051
+      #    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org1.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
@@ -185,9 +185,9 @@ services:
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org2MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org2.fchain.com:7051
+      #    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org2.fchain.com:7051
     - CORE_PEER_ADDRESS=p0.org2.fchain.com:7051
-    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org2.fchain.com:7051
+      #    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org2.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
@@ -230,9 +230,9 @@ services:
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org2MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org2.fchain.com:7051
+      #- CORE_PEER_GOSSIP_BOOTSTRAP=p1.org2.fchain.com:7051
     - CORE_PEER_ADDRESS=p1.org2.fchain.com:7051
-    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org2.fchain.com:7051
+      #- CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org2.fchain.com:7051
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
@@ -275,9 +275,9 @@ services:
     - CORE_CHAINCODE_LOGGING_LEVEL=debug
     - CORE_PEER_LOCALMSPID=Org3MSP
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-    - CORE_PEER_GOSSIP_BOOTSTRAP=p0.org3.fchain.com:7051
+    #- CORE_PEER_GOSSIP_BOOTSTRAP=p0.org3.fchain.com:7051
     - CORE_PEER_ADDRESS=p0.org3.fchain.com:7051
-    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org3.fchain.com:7051
+    #- CORE_PEER_GOSSIP_EXTERNALENDPOINT=p0.org3.fchain.com:7053
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
@@ -322,7 +322,7 @@ services:
     - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
     - CORE_PEER_GOSSIP_BOOTSTRAP=p1.org3.fchain.com:7051
     - CORE_PEER_ADDRESS=p1.org3.fchain.com:7051
-    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org3.fchain.com:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=p1.org3.fchain.com:7053
     # # the following setting starts chaincode containers on the same
     # # bridge network as the peers
     # # https://docs.docker.com/compose/networking/
