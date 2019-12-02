@@ -177,7 +177,9 @@
                               <th>증거명</th>
                               <th>등록자</th>
                               <th>등록일</th>
+                              <th>파일명</th>
                               <th>해시값</th>
+                              <th>다운로드</th>
                            </tr>
                            </thead>
                         </table>
@@ -351,7 +353,6 @@
                "moveOrg" : moveOrg,
                "moveDescription" : moveDescription}),
             success: function(data){
-
             },
             beforeSend: function(){
             },
@@ -360,6 +361,84 @@
          });
       }
 
+      datatable1 = $('#datatable1').DataTable({
+         'paging': true, // Table pagination
+         'ordering': true, // Column ordering
+         'info': true, // Bottom left status text
+         ajax : {
+            url: "/mypage/selectAllEvidences",
+            type: "POST",
+            dataSrc: '',
+         },
+         drawCallback: datatable1DrawCallback,
+         responsive: true,
+         // Text translation options
+         // Note the required keywords between underscores (e.g _MENU_)
+         oLanguage: {
+            sSearch: 'Search all columns:',
+            sLengthMenu: '_MENU_ records per page',
+            info: 'Showing page _PAGE_ of _PAGES_',
+            zeroRecords: 'Nothing found - sorry',
+            infoEmpty: 'No records available',
+            infoFiltered: '(filtered from _MAX_ total records)',
+            oPaginate: {
+               sNext: '<em class="fa fa-caret-right"></em>',
+               sPrevious: '<em class="fa fa-caret-left"></em>'
+            }
+         },
+         // Datatable Buttons setup
+         dom: 'Bfrtip',
+         "aaSorting": [ [ 3, "desc" ] ],
+         buttons: [
+            { extend: 'copy', className: 'btn-info' },
+            { extend: 'csv', className: 'btn-info' },
+            { extend: 'excel', className: 'btn-info', title: 'XLS-File' },
+            { extend: 'pdf', className: 'btn-info', title: $('title').text() },
+            { extend: 'print', className: 'btn-info' }
+         ],
+         keys: {
+            columns: ':not(:first-child)',
+            keys: [ 0 ]
+         },
+         columns : [
+            {data: 'objectId', "defaultContent": ""},
+            {data: 'caseId', "defaultContent": ""},
+            {data: 'evidenceId', "defaultContent": ""},
+            {data: 'registerId', "defaultContent": ""},
+            {data: "registerDate",
+               "render": function (data) {
+                  return new Date(data).format("yyyy.MM.dd HH:mm");
+               }
+            },
+            {data: 'fileName',
+               "render": function (data) {
+                  return Math.round(Math.random() * (17));
+               }
+            },
+            {data: 'hash', "defaultContent": ""},
+            {data: "filePath",
+               "render": function (data) {
+                  var html = null;
+                  html = '<span class="text-muted mr-1" onclick="clickDownload(\''+data+'\')"><em class="fa fa-download fa-fw"></em></span>';
+                  return html;
+               }
+            }
+         ],
+         createdRow: function( row, data, dataIndex){
+            if( dataIndex == 0 ) {
+               // 첫 줄은 조회수가 항상 0이다.
+               $(row).find("td")[4].innerText = 0;
+            }
+
+            if( dataIndex <= 2 ) {
+               // 마지막 3개를 Update
+               document.querySelectorAll(".detailFileName")[dataIndex].innerText = data.fileName;
+               document.querySelectorAll(".detailRegisterDate")[dataIndex].innerText = data.registerDate;
+               document.querySelectorAll(".detailPeople")[dataIndex].innerText = Math.round(Math.random() * (17));
+               document.querySelectorAll(".detailHash")[dataIndex].innerText = data.hash;
+            }
+         }
+      });
 
    </script>
 

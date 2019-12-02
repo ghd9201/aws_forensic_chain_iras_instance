@@ -64,8 +64,6 @@ public class UserController {
 
         mv.addObject("user", user);
 
-
-
         return mv;
     }
 
@@ -101,17 +99,15 @@ public class UserController {
     }
 
     /* 문서 조회 */
-    @RequestMapping(value = "mypage/selectAllEvidencess")
+    @RequestMapping(value = "mypage/selectAllEvidences")
     protected void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // set encoding type to UTF-8
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
-        // Parameter
-        HashMap<String, String> p = ServletUtil.paramToHashMapUtf8(request);
 
         ArrayList<HashMap> result = evidenceService.selectAllEvidences();
-        //ArrayList<HashMap> result = dao.commonSelectList("sql-document." + this.getClass().getSimpleName(), p);
+
         System.out.println( result );
         response.getWriter().write(gson.toJson(result));
     }

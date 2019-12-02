@@ -26,3 +26,29 @@
 
         System.out.println("############### FileUpload - End ##########");
     }
+
+
+
+
+
+
+
+    @GetMapping(value = "mypage/selectAllEvidences")
+        protected void serviceGet(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        }
+
+        /* 문서 조회 */
+        @PostMapping(value = "mypage/selectAllEvidences")
+        protected void servicePost(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+            // set encoding type to UTF-8
+            request.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html; charset=utf-8");
+            // Parameter
+            HashMap<String, String> p = ServletUtil.paramToHashMapUtf8(request);
+
+            ArrayList<HashMap> result = evidenceService.selectAllEvidences();
+            //ArrayList<HashMap> result = dao.commonSelectList("sql-document." + this.getClass().getSimpleName(), p);
+            System.out.println( result );
+            response.getWriter().write(gson.toJson(result));
+        }
