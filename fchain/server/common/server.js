@@ -1,9 +1,3 @@
-/**
- * Copyright 2018 (주)KT All Rights Reserved.
- *
- *
- */
-
 import Express from 'express';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
